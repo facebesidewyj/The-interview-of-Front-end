@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>高度自适应的三栏布局</title>
+    <style media="screen">
+    html * {
+        padding: 0;
+        margin: 0;
+    }
+    /*给最小高度*/
+
+    .layout article div {
+        min-height: 100px
+    }
+    </style>
+</head>
+
+<body>
+    <!-- 浮动解决方案 -->
+    <section class="layout float">
+        <style>
+        .layout.float article {
+            overflow: hidden;
+        }
+
+        .layout.float .left {
+            float: left;
+            width: 300px;
+            padding-bottom: 9999px;
+            margin-bottom: -9999px;
+            background-color: red;
+        }
+
+        .layout.float .right {
+            float: right;
+            width: 300px;
+            padding-bottom: 9999px;
+            margin-bottom: -9999px;
+            background-color: blue;
+        }
+
+        .layout.float .center {
+            overflow: hidden;
+            padding-bottom: 9999px;
+            margin-bottom: -9999px;
+            background-color: yellow;
+        }
+        </style>
+        <h1>浮动解决方案</h1>
+        <article>
+            <div class="left"></div>
+            <div class="right"></div>
+            <div class="center">
+                浮动解决方案浮动解决方案浮动解决方案浮动解决方案浮动解决方案浮动解决方案浮动解决方案浮动解决方案浮动解决方案浮动解决方案浮动解决方案浮动解决
+            </div>
+        </article>
+    </section>
+    <!-- 绝对定位解决方案 -->
+    <section class="layout absolute">
+        <style></style>
+        <h1>绝对定位解决方案</h1>
+    </section>
+    <!-- flex解决方案 -->
+    <section class="layout flex">
+        <style></style>
+        <h1>flex解决方案</h1>
+    </section>
+    <!-- 表格解决方案 -->
+    <section class="layout table">
+        <style></style>
+        <h1>表格解决方案</h1>
+    </section>
+    <!-- 网格解决方案 -->
+    <section class="layout grid">
+        <style></style>
+        <h1>网格解决方案</h1>
+    </section>
+</body>
+
+</html>
