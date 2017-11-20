@@ -61,8 +61,43 @@
     </section>
     <!-- 绝对定位解决方案 -->
     <section class="layout absolute">
-        <style></style>
+        <style>
+        .layout.absolute article {
+            position: relative;
+        }
+
+        .layout.absolute .left {
+            position: absolute;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            width: 300px;
+            background-color: red;
+        }
+
+        .layout.absolute .center {
+            padding: 0 300px;
+            overflow: hidden;
+            background-color: yellow;
+        }
+
+        .layout.absolute .right {
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            width: 300px;
+            background-color: blue;
+        }
+        </style>
         <h1>绝对定位解决方案</h1>
+        <article>
+            <div class="left"></div>
+            <div class="center">
+                绝对定位解决方案绝对定位解决方案绝对定位解决方案绝对定位解决方案绝对定位解决方案绝对定位解决方案绝对定位解决方案绝对定位解决方案绝对定位解决
+            </div>
+            <div class="right"></div>
+        </article>
     </section>
     <!-- flex解决方案 -->
     <section class="layout flex">
