@@ -7,112 +7,195 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>高度自适应的三栏布局</title>
     <style media="screen">
-    html * {
-        padding: 0;
-        margin: 0;
-    }
-    /*给最小高度*/
+        html * {
+            padding: 0;
+            margin: 0;
+        }
 
-    .layout article div {
-        min-height: 100px
-    }
+        /*设定最小高度*/
+
+        .layout article div {
+            min-height: 100px
+        }
     </style>
 </head>
 
 <body>
+
     <!-- 浮动解决方案 -->
     <section class="layout float">
         <style>
-        .layout.float article {
-            overflow: hidden;
-        }
+            .layout.float article {
+                overflow: hidden;
+            }
 
-        .layout.float .left {
-            float: left;
-            width: 300px;
-            padding-bottom: 9999px;
-            margin-bottom: -9999px;
-            background-color: red;
-        }
+            .layout.float .left {
+                float: left;
+                width: 300px;
+                padding-bottom: 9999px;
+                margin-bottom: -9999px;
+                background-color: red;
+            }
 
-        .layout.float .right {
-            float: right;
-            width: 300px;
-            padding-bottom: 9999px;
-            margin-bottom: -9999px;
-            background-color: blue;
-        }
+            .layout.float .right {
+                float: right;
+                width: 300px;
+                padding-bottom: 9999px;
+                margin-bottom: -9999px;
+                background-color: blue;
+            }
 
-        .layout.float .center {
-            overflow: hidden;
-            padding-bottom: 9999px;
-            margin-bottom: -9999px;
-            background-color: yellow;
-        }
+            .layout.float .center {
+                overflow: hidden;
+                padding-bottom: 9999px;
+                margin-bottom: -9999px;
+                background-color: yellow;
+            }
         </style>
         <h1>浮动解决方案</h1>
         <article>
             <div class="left"></div>
             <div class="right"></div>
             <div class="center">
-                浮动解决方案浮动解决方案浮动解决方案浮动解决方案浮动解决方案浮动解决方案浮动解决方案浮动解决方案浮动解决方案浮动解决方案浮动解决方案浮动解决
+                浮动解决方案浮动解决方案浮动解决方案浮动解决方案解决绝对定位解决方案绝对定位解决
             </div>
         </article>
     </section>
+
     <!-- 绝对定位解决方案 -->
     <section class="layout absolute">
         <style>
-        .layout.absolute article {
-            position: relative;
-        }
+            .layout.absolute article {
+                position: relative;
+            }
 
-        .layout.absolute .left {
-            position: absolute;
-            top: 0;
-            left: 0;
-            bottom: 0;
-            width: 300px;
-            background-color: red;
-        }
+            .layout.absolute .left {
+                position: absolute;
+                top: 0;
+                left: 0;
+                bottom: 0;
+                width: 300px;
+                background-color: red;
+            }
 
-        .layout.absolute .center {
-            padding: 0 300px;
-            overflow: hidden;
-            background-color: yellow;
-        }
+            .layout.absolute .center {
+                padding: 0 300px;
+                overflow: hidden;
+                background-color: yellow;
+            }
 
-        .layout.absolute .right {
-            position: absolute;
-            top: 0;
-            right: 0;
-            bottom: 0;
-            width: 300px;
-            background-color: blue;
-        }
+            .layout.absolute .right {
+                position: absolute;
+                top: 0;
+                right: 0;
+                bottom: 0;
+                width: 300px;
+                background-color: blue;
+            }
         </style>
         <h1>绝对定位解决方案</h1>
         <article>
             <div class="left"></div>
             <div class="center">
-                绝对定位解决方案绝对定位解决方案绝对定位解决方案绝对定位解决方案绝对定位解决方案绝对定位解决方案绝对定位解决方案绝对定位解决方案绝对定位解决
+                绝对定位解决方案绝对定位解决方案绝对定位解决方案绝决方案绝对定位解决方案绝对定位解决方案绝对定位解决方案绝对定
+                <div class="right"></div>
+        </article>
+    </section>
+
+    <!-- flex解决方案 -->
+    <section class="layout flex">
+        <style>
+            .layout.flex article {
+                display: flex;
+            }
+
+            .layout.flex article .left {
+                flex: 0 0 300px;
+                background-color: red;
+            }
+
+            .layout.flex article .center {
+                flex: 1;
+                background-color: yellow;
+            }
+
+            .layout.flex article .right {
+                flex: 0 0 300px;
+                background-color: blue;
+            }
+        </style>
+        <h1>flex解决方案</h1>
+        <article>
+            <div class="left"></div>
+            <div class="center">
+                flex解决方案flex解决方案flex解决方案flex解决方案flex解决方案flex解决方案flex解决方案flex解决方案 flex解决方案flex解决方案flex解决方案 flex解决方案flex解决方案flex解决方案flex解决方案flex解决方案flex解决方案flex解决方案flex解决方案 flex解决方案flex解决方案flex解决方案flex解决方案flex解决方案flex解决方案flex解决方案flex解决方案flex解决方案flex解决方案flex解决方案 flex解决方案flex解决方案flex解决方案flex解决方案flex解决方案flex解决方案flex解决方案flex解决方案flex解决方案flex解决方案flex解决方案
             </div>
             <div class="right"></div>
         </article>
     </section>
-    <!-- flex解决方案 -->
-    <section class="layout flex">
-        <style></style>
-        <h1>flex解决方案</h1>
-    </section>
+
     <!-- 表格解决方案 -->
     <section class="layout table">
-        <style></style>
+        <style>
+            .layout.table article {
+                display: table;
+            }
+
+            .layout.table article .left {
+                display: table-cell;
+                width: 300px;
+                background-color: red;
+            }
+
+            .layout.table article .center {
+                display: table-cell;
+                background-color: yellow;
+            }
+
+            .layout.table article .right {
+                display: table-cell;
+                width: 300px;
+                background-color: blue;
+            }
+        </style>
         <h1>表格解决方案</h1>
+        <article>
+            <div class="left"></div>
+            <div class="center">
+                表格解决方案表格解决方案表格解决方案表格解决方案表格解决方案表格解决方案表格解决方案表格解决方案表格解决方案表格解决方案表格解决方案表格解决方案表格解决方案表格解决方案表格解决方案表格解决方案表格解决方案表格解决方案表格解决方案表格解决方案表格解决方案表格解决方案表格解决方案表格解决方案表格解决方案表格解决方案表格解决方案表格解决方案表格解决方案表格解决方案表格解决方案表格解决方案表格解决方案表格解决方案表格解决方案表格解决方案表格解决方案表格解决方案表格解决方案表格解决方案表格解决方案表格解决方案表格解决方案表格解决方案表格解决方案表格解决方案表格解决方案表格解决方案表格解决方案表格解决方案表格解决方案表格解决方案表格解决方案表格解决方案表格解决方案表格解决方案
+            </div>
+            <div class="right"></div>
+        </article>
     </section>
+
     <!-- 网格解决方案 -->
     <section class="layout grid">
-        <style></style>
+        <style>
+            .layout.grid article {
+                display: grid;
+                grid-template-columns: 300px auto 300px;
+            }
+
+            .layout.grid article .left {
+                background-color: red;
+            }
+
+            .layout.grid article .center {
+                background-color: yellow;
+            }
+
+            .layout.grid article .right {
+                background-color: blue;
+            }
+        </style>
         <h1>网格解决方案</h1>
+        <article>
+            <div class="left"></div>
+            <div class="center">
+                网格解决方案网格解决方案网格解决方案网格解决方案网格解决方案网格解决方案网格解决方案网格解决方案网格解决方案网格解决方案网格解决方案网格解决方案网格解决方案网格解决方案网格解决方案网格解决方案网格解决方案网格解决方案网格解决方案网格解决方案网格解决方案网格解决方案网格解决方案网格解决方案网格解决方案网格解决方案网格解决方案网格解决方案网格解决方案网格解决方案网格解决方案网格解决方案网格解决方案网格解决方案网格解决方案网格解决方案网格解决方案网格解决方案网格解决方案网格解决方案网格解决方案网格解决方案网格解决方案网格解决方案网格解决方案网格解决方案网格解决方案网格解决方案网格解决方案网格解决方案网格解决方案网格解决方案网格解决方案网格解决方案网格解决方案网格解决方案网格解决方案网格解决方案网格解决方案网格解决方案网格解决方案网格解决方案网格解决方案网格解决方案网格解决方案网格解决方案网格解决方案网格解决方案网格解决方案网格解决方案网格解决方案网格解决方案网格解决方案网格解决方案网格解决方案网格解决方案网格解决方案网格解决方案网格解决方案网格解决方案网格解决方案网格解决方案网格解决方案网格解决方案网格解决方案网格解决方案网格解决方案网格解决方案网格解决方案网格解决方案网格解决方案网格解决方案网格解决方案网格解决方案网格解决方案网格解决方案网格解决方案网格解决方案网格解决方案网格解决方案网格解决方案网格解决方案网格解决方案网格解决方案网格解决方案网格解决方案网格解决方案网格解决方案
+            </div>
+            <div class="right"></div>
+        </article>
     </section>
 </body>
 

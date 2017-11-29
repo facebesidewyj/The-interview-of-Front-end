@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<style>
+    html * {
+        padding: 0;
+        margin: 0;
+    }
+
+    header,
+    footer {
+        height: 100px;
+        background-color: #eee;
+    }
+</style>
+
+<body>
+
+    <!-- 绝对定位布局 -->
+    <section class="absolute-layout">
+        <style media="screen">
+            .absolute-layout article {
+                position: absolute;
+                top: 100px;
+                bottom: 100px;
+                left: 0;
+                right: 0;
+                background-color: hotpink;
+            }
+
+            .absolute-layout footer {
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                right: 0;
+            }
+        </style>
+        <header>
+            我是绝对定位布局的header
+        </header>
+        <article class="">
+            <h1>上下固定，中间自适应</h1>
+            <p>上下固定100px，中间自适应</p>
+        </article>
+        <footer>
+            我是绝对定位布局的footer
+        </footer>
+    </section>
+</body>
+
+</html>

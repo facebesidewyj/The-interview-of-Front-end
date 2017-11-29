@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>移动端布局方式</title>
+    <style>
+        html * {
+            padding: 0;
+            margin: 0;
+        }
+
+        header,
+        footer {
+            height: 100px;
+            background-color: #eee;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- flex布局 -->
+    <section class="flex-layout">
+        <style media="screen">
+            .flex-layout {
+                display: flex;
+                flex-direction: column;
+            }
+
+            .flex-layout article {
+                background-color: hotpink;
+                flex: 1;
+                overflow: hidden;
+            }
+        </style>
+        <header>
+            我是flex布局的header
+        </header>
+        <article class="">
+            <h1>上下固定，中间自适应</h1>
+            <p>上下固定100px，中间自适应上下固定100px，</p>
+        </article>
+        <footer>
+            我是flex布局的footer
+        </footer>
+    </section>
+
+    <!-- 表格布局 -->
+    <section class="table-layout">
+        <style media="screen">
+            .table-layout {
+                display: table;
+                margin-top: 20px;
+                width: 100%;
+                height: 100%;
+            }
+
+            .table-layout header {
+                display: table-row;
+            }
+
+            .table-layout footer {
+                display: table-row;
+            }
+
+            .table-layout article {
+                display: table-row;
+                background-color: hotpink;
+            }
+        </style>
+        <header>
+            我是表格布局的header
+        </header>
+        <article class="">
+            <h1>上下固定，中间自适应</h1>
+            <p>上下固定100px，中间自适应上下固定100px，</p>
+        </article>
+        <footer>
+            我是表格布局的footer
+        </footer>
+    </section>
+
+    <!-- 网格布局 -->
+    <section class="grid-layout">
+        <style media="screen">
+            .grid-layout {
+                display: grid;
+                grid-template-rows: 100px auto 100px;
+                margin-top: 20px;
+            }
+
+            .grid-layout article {
+                background-color: hotpink;
+            }
+        </style>
+        <header>
+            我是网格布局的header
+        </header>
+        <article class="">
+            <h1>上下固定，中间自适应</h1>
+            <p>上下固定100px，中间自适应上下固定100px，中间自适应上下固定100px，中间自适应上下固定100px，中间自适应上下固定100px，中</p>
+        </article>
+        <footer>
+            我是网格布局的footer
+        </footer>
+    </section>
+</body>
+
+</html>

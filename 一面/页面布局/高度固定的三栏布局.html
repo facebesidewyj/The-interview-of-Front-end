@@ -7,37 +7,39 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>高度固定的三栏布局</title>
     <style media="screen">
-    html * {
-        padding: 0;
-        margin: 0;
-    }
-    /*固定高度*/
+        html * {
+            padding: 0;
+            margin: 0;
+        }
 
-    .layout article div {
-        height: 100px
-    }
+        /*固定高度*/
+
+        .layout article div {
+            height: 100px
+        }
     </style>
 </head>
 
 <body>
+
     <!-- float布局 -->
     <section class="layout float">
         <style media="screen">
-        .layout.float .left {
-            float: left;
-            width: 300px;
-            background-color: red;
-        }
+            .layout.float .left {
+                float: left;
+                width: 300px;
+                background-color: red;
+            }
 
-        .layout.float .right {
-            float: right;
-            width: 300px;
-            background-color: blue;
-        }
+            .layout.float .right {
+                float: right;
+                width: 300px;
+                background-color: blue;
+            }
 
-        .layout.float .center {
-            background-color: green;
-        }
+            .layout.float .center {
+                background-color: green;
+            }
         </style>
         <h1>浮动解决方案</h1>
         <article>
@@ -48,29 +50,30 @@
             </div>
         </article>
     </section>
+
     <!-- absolute布局 -->
     <section class="layout absolute">
         <style media="screen">
-        .layout.absolute .left {
-            position: absolute;
-            left: 0;
-            width: 300px;
-            background-color: red;
-        }
+            .layout.absolute .left {
+                position: absolute;
+                left: 0;
+                width: 300px;
+                background-color: red;
+            }
 
-        .layout.absolute .center {
-            position: absolute;
-            left: 300px;
-            right: 300px;
-            background-color: yellow;
-        }
+            .layout.absolute .center {
+                position: absolute;
+                left: 300px;
+                right: 300px;
+                background-color: yellow;
+            }
 
-        .layout.absolute .right {
-            position: absolute;
-            right: 0;
-            width: 300px;
-            background-color: blue;
-        }
+            .layout.absolute .right {
+                position: absolute;
+                right: 0;
+                width: 300px;
+                background-color: blue;
+            }
         </style>
         <h1>绝对定位解决方案</h1>
         <article>
@@ -81,31 +84,32 @@
             <div class="right"></div>
         </article>
     </section>
+
     <!-- flex布局 -->
     <section class="layout flex">
         <style media="screen">
-        .layout.flex {
-            margin-top: 110px
-        }
+            .layout.flex {
+                margin-top: 110px
+            }
 
-        .layout.flex article {
-            display: flex;
-        }
+            .layout.flex article {
+                display: flex;
+            }
 
-        .layout.flex .left {
-            flex: 0 0 300px;
-            background-color: red;
-        }
+            .layout.flex .left {
+                flex: 0 0 300px;
+                background-color: red;
+            }
 
-        .layout.flex .center {
-            flex: 1;
-            background-color: yellow;
-        }
+            .layout.flex .center {
+                flex: 1;
+                background-color: yellow;
+            }
 
-        .layout.flex .right {
-            flex: 0 0 300px;
-            background-color: blue;
-        }
+            .layout.flex .right {
+                flex: 0 0 300px;
+                background-color: blue;
+            }
         </style>
         <h1>flex解决方案</h1>
         <article>
@@ -116,30 +120,30 @@
             <div class="right"></div>
         </article>
     </section>
+
     <!-- table布局 -->
     <section class="layout table">
         <style media="screen">
-        .layout.table article {
-            display: table;
-            height: 100px;
-        }
+            .layout.table article {
+                display: table;
+            }
 
-        .layout.table .left {
-            display: table-cell;
-            width: 300px;
-            background-color: red;
-        }
+            .layout.table .left {
+                display: table-cell;
+                width: 300px;
+                background-color: red;
+            }
 
-        .layout.table .center {
-            display: table-cell;
-            background-color: green;
-        }
+            .layout.table .center {
+                display: table-cell;
+                background-color: green;
+            }
 
-        .layout.table .right {
-            display: table-cell;
-            width: 300px;
-            background-color: blue;
-        }
+            .layout.table .right {
+                display: table-cell;
+                width: 300px;
+                background-color: blue;
+            }
         </style>
         <h1>表格布局解决方案</h1>
         <article>
@@ -150,27 +154,28 @@
             <div class="right"></div>
         </article>
     </section>
+
     <!-- grid布局 -->
     <section class="layout grid">
         <style media="screen">
-        .layout.grid article {
-            display: grid;
-            width: 100%;
-            grid-template-rows: 100px;
-            grid-template-columns: 300px auto 300px;
-        }
+            .layout.grid article {
+                display: grid;
+                width: 100%;
+                grid-template-rows: 100px;
+                grid-template-columns: 300px auto 300px;
+            }
 
-        .layout.grid .left {
-            background-color: red;
-        }
+            .layout.grid .left {
+                background-color: red;
+            }
 
-        .layout.grid .center {
-            background-color: yellow;
-        }
+            .layout.grid .center {
+                background-color: yellow;
+            }
 
-        .layout.grid .right {
-            background-color: blue;
-        }
+            .layout.grid .right {
+                background-color: blue;
+            }
         </style>
         <h1>网格布局解决方案</h1>
         <article>
