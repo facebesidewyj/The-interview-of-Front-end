@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>上下两栏布局</title>
+    <style media="screen">
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            height: 100px;
+        }
+
+        section {
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 绝对定位布局 -->
+    <!-- <section class="position-layout">
+        <style media="screen">
+            .position-layout header {
+                background-color: red;
+            }
+
+            .position-layout article {
+                position: absolute;
+                top: 100px;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                background-color: blue;
+            }
+        </style>
+        <header>
+            绝对定位布局的header
+        </header>
+        <article>
+            布局要求：上方固定100px,下方自适应。
+        </article>
+    </section> -->
+
+    <!-- flex布局 -->
+    <section class="flex-layout">
+        <style media="screen">
+            .flex-layout {
+                display: flex;
+                flex-direction: column;
+                height: 100%;
+            }
+
+            .flex-layout header {
+                background-color: red;
+            }
+
+            .flex-layout article {
+                flex: 1;
+                background-color: blue;
+                overflow: hidden;
+            }
+        </style>
+        <header>flex布局header</header>
+        <article>
+            布局要求：上方固定100px,下方自适应。
+        </article>
+    </section>
+
+    <!-- table布局 -->
+    <section class="table-layout">
+        <style media="screen">
+            .table-layout {
+                display: table;
+                width: 100%;
+                height: 100%;
+            }
+
+            .table-layout header {
+                display: table-row;
+                width: 100%;
+                background-color: red;
+            }
+
+            .table-layout article {
+                display: table-row;
+                width: 100%;
+                background-color: blue;
+            }
+        </style>
+        <header>
+            table布局的header
+        </header>
+        <article>
+            布局要求：上方固定100px,下方自适应。
+        </article>
+    </section>
+
+    <!-- grid布局 -->
+    <section class="gird-layout">
+        <style media="screen">
+            .gird-layout {
+                display: grid;
+                grid-template-rows: 100px auto;
+            }
+
+            .gird-layout header {
+                background-color: red;
+            }
+
+            .gird-layout article {
+                background-color: blue;
+            }
+        </style>
+        <header>
+            grid布局的header
+        </header>
+        <article>
+            布局要求：上方固定100px,下方自适应。
+        </article>
+    </section>
+</body>
+
+</html>

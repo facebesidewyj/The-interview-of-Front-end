@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>高度自适应左右两栏布局</title>
+    <style>
+        html * {
+            padding: 0;
+            margin: 0;
+        }
+
+        section {
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 浮动布局 -->
+    <section class="float-layout">
+        <style media="screen">
+            .float-layout article {
+                overflow: hidden;
+            }
+
+            /**
+             * 设置padding-bottom: 9999px;和margin-bottom: -9999px;
+             * 可以让两侧高度统一
+             */
+
+            .float-layout article .left {
+                float: left;
+                width: 300px;
+                padding-bottom: 9999px;
+                margin-bottom: -9999px;
+                background-color: blue;
+            }
+
+            .float-layout article .right {
+                padding-bottom: 9999px;
+                margin-bottom: -9999px;
+                overflow: hidden;
+                background: red;
+            }
+        </style>
+        <article>
+            <div class="left">浮动左侧布局</div>
+            <div class="right">浮动右侧布局</div>
+        </article>
+    </section>
+
+    <!-- flex布局 -->
+    <section class="flex-layout">
+        <style media="screen">
+            .flex-layout article {
+                display: flex;
+            }
+
+            .flex-layout article .left {
+                flex: 0 0 300px;
+                width: 300px;
+                background-color: blue;
+            }
+
+            .flex-layout article .right {
+                flex: 1;
+                background-color: red;
+            }
+        </style>
+        <article>
+            <div class="left">flex左侧布局</div>
+            <div class="right">flex右侧布局</div>
+        </article>
+    </section>
+
+    <!-- table布局 -->
+    <section class="table-layout">
+        <style media="screen">
+            .table-layout article {
+                display: table;
+                width: 100%;
+            }
+
+            .table-layout article .left {
+                display: table-cell;
+                width: 300px;
+                background-color: blue;
+            }
+
+            .table-layout article .right {
+                display: table-cell;
+                background-color: red;
+            }
+        </style>
+        <article>
+            <div class="left">table左侧布局</div>
+            <div class="right">table右侧布局</div>
+        </article>
+    </section>
+
+    <!-- gird布局 -->
+    <section class="grid-layout">
+        <style media="screen">
+            .grid-layout article {
+                display: grid;
+                grid-template-columns: 300px auto;
+            }
+
+            .grid-layout article .left {
+                background-color: red;
+            }
+
+            .grid-layout article .right {
+                background-color: blue;
+            }
+        </style>
+        <article>
+            <div class="left">grid左侧布局</div>
+            <div class="right">gird右侧布局</div>
+        </article>
+    </section>
+
+    <!-- 定位布局 -->
+    <section class="position-layout">
+        <style media="screen">
+            .position-layout article {
+                position: relative;
+            }
+
+            .position-layout article .left {
+                position: absolute;
+                top: 0;
+                left: 0;
+                bottom: 0;
+                width: 300px;
+                background-color: blue;
+            }
+
+            .position-layout article .right {
+                padding: 0 0 0 300px;
+                background-color: red;
+                overflow: hidden;
+            }
+        </style>
+        <article>
+            <div class="left">定位左侧布局</div>
+            <div class="right">定位右侧布局</div>
+        </article>
+    </section>
+</body>
+
+</html>
