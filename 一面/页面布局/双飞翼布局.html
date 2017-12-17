@@ -7,9 +7,56 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>淘宝双飞翼布局示例</title>
 </head>
+<style>
+.header,
+.footer {
+    height: 50px;
+    background-color: gray;
+}
+
+.wrapper {
+    overflow: hidden;
+    zoom: 1;
+}
+
+.wrapper .main-wrapper {
+    float: left;
+    width: 100%;
+}
+
+.wrapper .main-wrapper .main {
+    height: 300px;
+    margin: 0 190px 0 210px;
+    background-color: yellow;
+}
+
+.wrapper .left {
+    float: left;
+    width: 200px;
+    height: 300px;
+    margin-left: -100%;
+    background-color: skyblue;
+}
+
+.wrapper .right {
+    float: right;
+    width: 180px;
+    height: 300px;
+    margin-left: -180px;
+    background-color: hotpink;
+}
+</style>
 
 <body>
-
+    <header class="header">header</header>
+    <div class="wrapper">
+        <div class="main-wrapper">
+            <div class="main">main</div>
+        </div>
+        <div class="left">left</div>
+        <div class="right">right</div>
+    </div>
+    <footer class="footer">footer</footer>
 </body>
 
 </html>
