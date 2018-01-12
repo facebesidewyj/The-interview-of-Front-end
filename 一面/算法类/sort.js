@@ -28,29 +28,6 @@ function quickSort(arr) {
 	return quickSort(left).concat([pivot], quickSort(right));
 }
 
-function quickSort(arr) {
-    var length = arr.length;
-
-    // 递归临界条件
-    if (length <= 1) {
-        return arr;
-    }
-
-    // 基准点
-    var temp = arr.splice(0, 1)[0];
-    var leftArr = [];
-    var rightArr = [];
-
-    for (var i = 0; i < length; i++) {
-        if (temp < arr[i]) {
-            rightArr.push(arr[i]);
-        } else {
-            leftArr.push(arr[i]);
-        }
-    }
-    return quickSort(leftArr).concat([temp], quickSort(rightArr));
-}
-
 /**
  * 选择排序
  * @param  {Array} arr 待排序的数组
