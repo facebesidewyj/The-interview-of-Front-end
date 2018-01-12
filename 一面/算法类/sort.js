@@ -1,5 +1,7 @@
 /**
  * 快速排序
+ * @param  {Array} arr 待排序的数组
+ * @return {Array}     有序数组
  */
 function quickSort(arr) {
 	if (arr.length <= 1) {
@@ -51,6 +53,8 @@ function quickSort(arr) {
 
 /**
  * 选择排序
+ * @param  {Array} arr 待排序的数组
+ * @return {Array}     有序数组
  */
 function selectionSort(arr) {
 	var length = arr.length;
@@ -71,7 +75,38 @@ function selectionSort(arr) {
 }
 
 /**
+ * 希尔排序
+ * @param  {Array} arr 待排序的数组
+ * @return {Array}     有序数组
+ */
+function shellSort(arr) {
+	var length = arr.length;
+	var step = 1;
+
+	// 定义间隔区间长度
+	while (step < length / 3) {
+		step = step * 3 + 1;
+	}
+
+	// 循环对子序列进行插入排序
+	while (step >= 1) {
+		for (var i = step; i < length; i++) {
+			for (var j = i; j >= step; j = j - step) {
+				if (arr[j - step] > arr[j]) {
+					swap(arr, j - step, j);
+				}
+			}
+		}
+		step = Math.floor(step / 3);
+	}
+	return arr;
+}
+
+/**
  * 交换算法
+ * @param  {Array} arr  	数组
+ * @param  {Number} num1 	数组索引
+ * @param  {Number} num2  数组索引
  */
 function swap(arr, num1, num2) {
 	var temp = arr[num1];
