@@ -61,7 +61,15 @@ tips: `**Document.documentElement**` 获取html元素
 
 # Event对象的常见应用。
 
-event.preventDefault() 阻止默认事件 event.stopPropagation() 阻止事件冒泡 event.stopImmediatePropagation() 事件响应优先级 event.currentTarget 绑定事件的元素 event.target 点击的元素对象
+event.preventDefault() 阻止默认事件
+
+event.stopPropagation() 阻止事件冒泡
+
+event.stopImmediatePropagation() 事件响应优先级
+
+event.currentTarget 绑定事件的元素
+
+event.target 点击的元素对象
 
 # 自定义事件。
 
