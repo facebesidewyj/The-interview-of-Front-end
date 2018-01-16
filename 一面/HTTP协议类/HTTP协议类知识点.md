@@ -16,7 +16,15 @@
 
 # HTTP方法。
 
-get:获取资源 post:传输资源 put:更新资源 delete:删除资源 head:获得报文首部
+get:获取资源
+
+post:传输资源
+
+put:更新资源
+
+delete:删除资源
+
+head:获得报文首部
 
 # GET与POST的区别。
 
