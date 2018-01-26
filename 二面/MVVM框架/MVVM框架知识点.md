@@ -11,15 +11,17 @@
 
 1. 聊聊MVC，彰显知识面涉猎较多
 
- 	 Model,View,Controler
+  Model,View,Controler
 
 2. 把MVVM定义说清楚
 
-  	Model(服务器中的数据实体),View(视图),ViewModel(核心枢纽Vue.js)
+  Model(服务器中的数据实体),View(视图),ViewModel(核心枢纽Vue.js)
 
-3. 对比MVVM和MVC MVC是单向通信。
+3. 对比MVVM和MVC
 
-  	MVVM采用双向绑定，View的变动自动反应在ViewModel，反之亦然。
+  MVC是单向通信。
+
+  MVVM采用双向绑定，View的变动自动反应在ViewModel，反之亦然。
 
 # 双向绑定是什么原理，可以写出来吗？
 
@@ -31,18 +33,18 @@
   var Book = {};
   var name = '';
   Object.defineProperty(Book, 'name', {
- 	 set: function(value) {
-    name = value
-  	}
-  	get: function() {
-    return name;
-  	}
+     set: function(value) {
+   name = value
+     }
+     get: function() {
+   return name;
+     }
   });
   ```
 
 2. object.defineProperty与reflect.defineProperty的区别
 
-	Object.defineProperty(obj, name, desc)在无法定义属性时，会抛出一个错误，而Reflect.defineProperty(obj, name, desc)则会返回false。
+  Object.defineProperty(obj, name, desc)在无法定义属性时，会抛出一个错误，而Reflect.defineProperty(obj, name, desc)则会返回false。
 
 3. object.defineProperty要会手写
 
