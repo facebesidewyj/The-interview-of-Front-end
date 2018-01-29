@@ -45,7 +45,8 @@
 
 以下代码输出什么？
 
-1. 
+1. 第一题
+
 	```javascript
 	var arr = 'ABB';
 	if (2 > 1) {
@@ -59,7 +60,8 @@
 	
 	解释：js 中没有块级作用域，所以块级作用域里没有变量提升，let arr 重新定义了 arr 但没有赋值，所以为 undefined。
 
-2.
+2. 第二题
+
 	```javascript
 	if (!('a' in window)) {
 	    var a = 1;
@@ -81,7 +83,8 @@
 	alert(a);
 	```
 
-3.
+3. 第三题
+
 	```javascript
 	function valueof() {
 	    return 1;
@@ -94,7 +97,8 @@
 	
 	解释：函数表达式不会提升，如果一个变量的名字与函数的名字相同，那么函数的名字会覆盖变量的名字。
 
-4.
+4. 第四题
+
 	```javascript
 	function A() {}
 	
