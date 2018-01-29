@@ -89,15 +89,7 @@ alert(typeof valueof);
 
 答案：function
 
-解释：变量提升,相当于:
-
-```javascript
-var valueof;
-valueof = function() {
-  return 1;
-}
-alert(typeof valueof);
-```
+解释：函数表达式不会提升，如果一个变量的名字与函数的名字相同，那么函数的名字会覆盖变量的名字
 
 ```javascript
 function A() {}
