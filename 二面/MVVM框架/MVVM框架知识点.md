@@ -29,7 +29,6 @@ MVVM 采用双向绑定，View 的变动自动反应在 ViewModel，反之亦然
 
 1. object.defineProperty 的用法熟记 object.defineProperty(obj, prop, descriptor)
 
-
 ```javascript
 var Book = {};
 var name = '';
@@ -95,4 +94,4 @@ Observer 的角色：new Vue()实例时，调用了 Observer，遍历所有的 d
 
 Observer 调用完之后要实例化 Watcher，Watcher 会调一下 get 函数，get 函数检测到 watcher 对象有值，就会把 watcher 放到观察者列表。
 
-在编译时，将真实的 DOM 转移到 Fragment（DOM 片段）上，通过 complie 对指令的识别，并生成指令描述对象，来进行相应的处理。
+在编译时，将真实的 DOM 转移到 Fragment（DOM 片段）对象上，通过 complie 对指令的识别，并生成指令描述对象，来进行相应的处理。
