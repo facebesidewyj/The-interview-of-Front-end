@@ -100,6 +100,22 @@
 4. 第四题
 
    ```javascript
+   var bb = 1;
+   function aa(bb) {
+     bb = 2;
+     alert(bb);
+   }
+   aa(bb);
+   alert(bb);
+   ```
+
+   答案：2 和 1
+
+   解释：函数中的 bb 被当作参数来使用，所以 bb=2 只是改变参数值，并不被当作全局变量来对待。
+
+5. 第五题
+
+   ```javascript
    function A() {}
 
    function B(a) {
