@@ -1,23 +1,29 @@
-# CSS盒模型有几种。
+# CSS 盒模型有几种。
 
-两种：第一种为W3C标准盒模型，第二种为IE传统盒模型。
+两种：第一种为 W3C 标准盒模型，第二种为 IE 传统盒模型。
 
-# 标准模型和IE模型的区别
+# 标准模型和 IE 模型的区别
 
-1. W3C标准盒模型的width属性只是content的宽度。
-2. IE盒模型的width属性包括padding和border的宽度。
+标准盒模型总宽度=margin+boder+padding+width。
 
-# CSS如何设置这两种模型
+IE 盒模型总宽度=margin+width。
 
-box-sizing属性，属性值为border-box为IE盒模型，属性值为content-box为W3C标准盒模型，属性值为inherit将继承父盒子的值
+区别只是 width 属性的计算。
 
-# JS如何获取盒模型对应的宽和高
+1. W3C 标准盒模型的 width 属性只是 content 的宽度。
+2. IE 盒模型的 width 属性包括 padding 和 border 的宽度。
+
+# CSS 如何设置这两种模型
+
+box-sizing 属性，属性值为 border-box 为 IE 盒模型，属性值为 content-box 为 W3C 标准盒模型，属性值为 inherit 将继承父盒子的值
+
+# JS 如何获取盒模型对应的宽和高
 
 1. 获取内联样式的宽和高：Element.style.width; Element.style.height;
-2. 获取渲染完成之后的宽和高：Element.currentStyle.width; Element.currentStyle.height;（只有IE支持）
+2. 获取渲染完成之后的宽和高：Element.currentStyle.width; Element.currentStyle.height;（只有 IE 支持）
 3. 获取计算后的宽和高（与上述一样，兼容性高）：window.getComputedStyle(Element).width; window.getComputedStyle(Element).height;
 4. 获取元素相对于视口的位置，来计算出高度：Element.getBoundingClientRect();该方法返回一个对象，包含一组矩形集合。
-5. 返回元素的可见宽度和高度，包括padding和border：Element.offsetWidth;Element.offsetHeight;
+5. 返回元素的可见宽度和高度，包括 padding 和 border：Element.offsetWidth;Element.offsetHeight;
 
 # 根据盒模型解释边距重叠概念
 
@@ -25,25 +31,25 @@ box-sizing属性，属性值为border-box为IE盒模型，属性值为content-bo
 
 # 什么是块级格式化上下文
 
-Block Formatting Context边距重叠解决方案
+Block Formatting Context 边距重叠解决方案
 
 # 块级格式化上下文的原理
 
-1. 浮动盒子的区域不会与BFC发生重叠
-2. 计算BFC高度时，是计算内部所有元素的高度，包括内部的浮动元素的高度。
-3. BFC在页面上是一个独立的容器，里面的子元素并不会影响到外面的元素。外面的元素也不会影响到BFC里面的子元素。
-4. 同一个BFC中的元素相互影响，会发生边距重叠。
+1. 浮动盒子的区域不会与 BFC 发生重叠
+2. 计算 BFC 高度时，是计算内部所有元素的高度，包括内部的浮动元素的高度。
+3. BFC 在页面上是一个独立的容器，里面的子元素并不会影响到外面的元素。外面的元素也不会影响到 BFC 里面的子元素。
+4. 同一个 BFC 中的元素相互影响，会发生边距重叠。
 
 # 如何创建块级格式化上下文
 
-1. float属性值不为none。
-2. position属性值为absolute或fixed
-3. display属性值为inline-block、table-cell、inline-flex。
-4. overflow属性值不为visible
-5. fieldset元素
+1. float 属性值不为 none。
+2. position 属性值为 absolute 或 fixed
+3. display 属性值为 inline-block、table-cell、inline-flex。
+4. overflow 属性值不为 visible
+5. fieldset 元素
 
 # 块级格式化上下文的使用场景
 
 1. 自适应两栏布局
 2. 清除浮动
-3. 防止垂直margin重叠
+3. 防止垂直 margin 重叠
