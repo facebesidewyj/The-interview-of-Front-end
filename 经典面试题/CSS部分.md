@@ -161,6 +161,25 @@ Flash Of Unstyle Content：页面闪烁，样式表加载问题。
     }
 }
 ```
+# 写出一个div元素1s内从left:0过渡到left:500px
+
+```
+// div
+<div></div>
+
+// css
+.traffic-light {
+	position: relative
+    width: 50px;
+    height: 50px;
+    animation: move 1s linear;
+}
+
+@keyframes move{
+	from{left: 0;}
+	to{left: 500px;}
+}
+```
 
 # 左右布局，左边定宽，右边自适应，不少于 3 中方法
 

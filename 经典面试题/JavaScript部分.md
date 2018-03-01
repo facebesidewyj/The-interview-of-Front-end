@@ -184,7 +184,7 @@ $()
 
 ## 什么是闭包
 
-闭包是在某个作用域内定义的函数，它可以访问这个作用域内的所有变量。
+闭包是有权访问另一个函数作用域中的变量的函数。
 
 当一个内部函数访问其函数作用域之外的变量引用时，就形成了一个闭包。
 
@@ -284,6 +284,48 @@ function parseQueryString(url) {
       '"}'
   );
   return json;
+}
+```
+# 编写一个方法，返回1到100的任意整数
+
+```javascript
+function getNumber(){
+	return Math.floor(Math.random() * 100);
+}
+```
+# 点击时弹出其索引
+题目：
+
+```html
+<a href="#">一</a>
+<a href="#">二</a>
+<a href="#">三</a>
+```
+答案：
+
+```javascript
+var arr = document.getElementsByTagName('a');
+
+for(let i = 0; i < arr.length; i++) {
+	arr[i].addEventListener('click', () => {
+		alert(i);
+	}, false);
+}
+```
+# 求字符串的字节长度
+
+原理：将中文替换成两个英文字母，因为一个中文等于两个字节，一个英文等于一个字节
+
+```javascript
+function getLength(str) {
+	return str.replace(/[^\u0000-\uffff/g, 'aa').length;
+}
+```
+# 去除字符串前后的空格
+
+```javascript
+function trim(str) {
+	return str.replace(/(^\s*)|(\s*$)/g, '');
 }
 ```
 
