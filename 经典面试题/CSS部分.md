@@ -15,6 +15,30 @@
 
 缺点：图片合并麻烦。维护麻烦。
 
+# 描述一下 CSS 的优先级规则
+
+优先级：内联样式>内部样式>外部样式
+
+# 怎么让偶数的 li 标签内的字体变成红色
+
+```html
+<ul>
+    <li>1</li>
+    <li>2</li>
+    <li>3</li>
+    <li>4</li>
+    <li>5</li>
+</ul>
+```
+
+答案：
+
+```css
+ul li:nth-child(even) {
+  background-color: red;
+}
+```
+
 # display:none 与 visibility:hidden 的区别
 
 1. display:none：非继承属性，元素消失不占空间，产生重绘重排。
@@ -52,19 +76,21 @@
 4. visibility
 5. cursor
 
+# 写出 position 的所有属性和他们的作用
+
+position 的属性及其作用：
+
+* absolute：绝对定位，相对于 static 定位以外的第一个父元素进行定位
+* fixed：根据浏览器窗口进行绝对定位
+* relative：相对自身的位置进行定位
+* static：默认值，没有定位
+* inherit：从父元素继承定位属性值
+
 # 什么是 FOUC？如何避免
 
 Flash Of Unstyle Content：页面闪烁，样式表加载问题。
 
 解决：将样式表放到 head 标签里
-
-# 块级元素、行内元素和行内置换元素
-
-块级元素： div、p、form、等
-
-行内元素 IFC：span、i、em、strong
-
-行内置换元素：内容不受 CSS 视觉格式化模型控制，元素本身拥有固定尺寸的元素，例如：img，input，button，select，textarea。
 
 # rem px pt em (区别)
 
@@ -121,3 +147,71 @@ Flash Of Unstyle Content：页面闪烁，样式表加载问题。
     }
 }
 ```
+
+# 左右布局，左边定宽，右边自适应，不少于 3 中方法
+
+1. float 布局：左边左浮定宽，右边设置 BFC 不设置宽度。
+2. flex：左边定宽，右边 flex 设为 1
+3. table：设为 table-cell，左边定宽，右边不定宽。
+4. absolute+padding：左边绝对定位，父元素 padding-left 设为左边元素宽度
+
+# CSS3 用过哪些新属性
+
+border-radius 圆角
+
+box-shadow text-shadow 文本和框的阴影
+
+box-sizing 盒模型设置
+
+flex 布局
+
+transition 过渡
+
+# BFC 和 IFC
+
+1. BFC：块级格式化上下文
+2. IFC：内联格式化上下文，行内盒子模型
+
+# 对栅格的理解
+
+以规则的网格阵列来进行页面排版布局，便于维护和开发。
+
+# 水平居中的实现方式
+
+1. center 标签
+2. margin：`margin: 0 auto;`
+3. 父元素设置 text-align:center，子元素实现居中。
+4. table+margin:`display:table; margin: 0 auto`
+5. 父元素设置 flex：`display:flex;justify-content:center;`子元素实现居中
+6. absolute+负 margin
+7. transform+relative:`position:relative;left:50%;transform:transateX(-50%);display:inline-block`
+
+# 居中的几种方案
+
+1. 水平居中
+
+   * 父元素设置`text-align:center`，子元素设置`display:inline-block`
+   * 元素设置`display:table;margin:0 auto`
+   * 元素设置`position:absolute; left:50%; transform:translateX(-50%);`
+   * 父元素设置`display:flex;justify-content:center;`，子元素设置`margin:0 auto`
+
+2. 垂直居中
+
+   * 父元素设置`display:table-cell;vertical-align:middle`
+   * 元素设置`position:absolute; top:50%; transform:translateY(-50%);`
+   * 元素设置`display:flex;align-items:center`
+
+3. 水平垂直居中
+
+   * 父元素设置`text-align:center;display:table-cell;vertical-align:middle`，子元素设置`display:inline-block`
+   * 元素设置`position:absolute; top:50%; left:50%; transform:translate3d(-50%, -50%, 0);`
+   * 元素设置`display:flex;justify-content:center;align-items:center`
+
+# 1 像素边框的问题
+
+伪类+缩放实现：通过@media 媒体查询，查询当前屏幕的设备像素比，根据设备像素比来进行缩放`transform: scaleY(系数)`。
+
+# 修改 chrome 自动填充密码的样式
+
+1. 覆盖 chrome 的私有属性 input : -webkit-autofill
+2. div 覆盖
