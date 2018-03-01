@@ -44,6 +44,8 @@ ul li:nth-child(even) {
 1. display:none：非继承属性，元素消失不占空间，产生重绘重排。
 2. visibility:hidden：继承属性，元素消失继续占据空间，只能造成重绘。
 
+visibility 的 collapse 属性：用在非表格元素上将与 display:none 效果一样，但用在表格元素上，元素消失，担任然占据空间。
+
 # CSS 外部引用之 link 与@import 的区别
 
 1. link 是 html 提供的标签，@import 是 css 提供的语法
@@ -86,6 +88,16 @@ position 的属性及其作用：
 * static：默认值，没有定位
 * inherit：从父元素继承定位属性值
 
+# position 跟 display、margin collapse、overflow、float 这些特性相互叠加后会怎么样
+
+如果元素的 display 为 none，那么元素不被渲染，position,float 不起作用。
+
+如果元素拥有 position:absolute;或者 position:fixed;属性那么元素将为绝对定位，float 不起作用。
+
+如果元素 float 属性不是 none，元素会脱离文档流，根据 float 属性值来显示。
+
+设置浮动和绝对定位的行内块的元素，margin 不会和垂直方向上的其他元素 margin 折叠。
+
 # 什么是 FOUC？如何避免
 
 Flash Of Unstyle Content：页面闪烁，样式表加载问题。
@@ -103,6 +115,8 @@ Flash Of Unstyle Content：页面闪烁，样式表加载问题。
    em 是相对长度单位，相当于当前对象的字体尺寸，基于父元素的 font-size 来计算的。rem 也是相对长度单位，只不过是基于 html 的 font-size 来计算的（默认 html 元素的字体大小为 16px）。
 
 # ::after 和:after 的区别
+
+单冒号用于 CSS3 伪类，双冒号用于 CSS3 伪元素。新的 CSS3 中引入的伪元素不支持单冒号的写法。
 
 ::after 是伪元素，css3 明确伪元素使用双冒号
 
@@ -215,3 +229,58 @@ transition 过渡
 
 1. 覆盖 chrome 的私有属性 input : -webkit-autofill
 2. div 覆盖
+
+# 用纯 CSS 创建一个三角形的原理是什么？
+
+```css
+// 把上、左、右三条边隐藏掉（颜色设为 transparent）
+#demo {
+  width: 0;
+  height: 0;
+  border-width: 20px;
+  border-style: solid;
+  border-color: transparent transparent red transparent;
+}
+```
+
+# css 多列等高如何实现
+
+父元素设置 overflow:hidden。
+
+子元素利用 padding-bottom 和 margin-bottom 正负值相抵实现。
+
+# li 与 li 或行内块元素之间有看不见的空白间隔是什么原因引起的？有什么解决办法？
+
+空白字符，将父元素的 font-size 设为 0 即可。
+
+# CSS 优化、提高性能的方法有哪些？
+
+1. 提取共有样式，增强复用性，按模块编写组件
+2. 使用构架和压缩工具
+
+# 设置元素浮动后，该元素的 display 值是多少
+
+display:block
+
+# 怎么让 Chrome 支持小于 12px 的文字
+
+可以将小于 12px 的文字做成图片
+
+# 让页面里的字体变清晰，变细用 CSS 怎么做
+
+-webkit-font-smoothing: antialiased;
+
+# font-style 属性可以让它赋值为“oblique” oblique 是什么意思
+
+文字斜体
+
+# 如果需要手动写动画，你认为最小时间间隔是多久，为什么？
+
+多数显示器默认频率是 60Hz，即 1 秒刷新 60 次，所以理论上最小间隔为 1/60＊1000ms ＝ 16.7ms
+
+# 什么是 CSS 预处理器 / 后处理器
+
+预处理器例如：LESS、Sass、Stylus，用来预编译 Sass 或 less，增强了 css 代码的复用性，还有层级、mixin、变量、循环、函数等，具有很方便的 UI 组件模块化开发能力，极大的提高工作效率。
+
+后处理器例如：PostCSS，通常被视为在完成的样式表中根据 CSS 规范处理 CSS，让其更有效；目前最常做的
+是给 CSS 属性添加浏览器私有前缀，实现跨浏览器兼容性的问题。

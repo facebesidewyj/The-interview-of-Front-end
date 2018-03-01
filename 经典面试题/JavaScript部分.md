@@ -1,3 +1,75 @@
+# JS 内置对象
+
+Object 是 JS 中所有对象的父对象。
+
+Function、Arguments、Math、Date、Error、Array、String、Number 等
+
+# JS 中有几种类型的值
+
+栈：原始数据类型
+
+堆：引用数据类型
+
+ps：引用类型的地址存储在栈中
+
+# javascript 代码中的"use strict";是什么意思 ?
+
+严格模式：规范化 JS 代码，提高编译效率，为新版本的 JS 标准做铺垫。
+
+# Javascript 中，有一个函数，执行时对象查找时，永远不会去查找原型，这个函数是
+
+Object.hasOwnProperty(name)该方法只检查对象内部的属性。
+
+# 模块化开发怎么做？
+
+立即执行函数，不暴露私有成员：
+
+```javascript
+var module = (function() {
+  var _name = 'jack';
+  var m1 = function() {
+    console.log(1);
+  };
+  var m2 = function() {
+    console.log(2);
+  };
+  return {
+    m1: m1,
+    m2: m2
+  };
+})();
+```
+
+# documen.write 和 innerHTML 的区别
+
+document.write 只能重绘整个页面
+
+innerHTML 可以重绘页面的一部分
+
+# .call() 和 .apply() 的区别
+
+call():将参数依次传递给借用的方法做参数
+
+apply():将这些参数放入数组中再传递
+
+# 函数节流与函数防抖
+
+函数节流与函数防抖都是为了限制函数的执行次数
+
+函数防抖：当调用动作过 n 毫秒后，才会执行该动作，若在这 n 毫秒内又调用此动作则将重新计算执行时间
+
+```javascript
+function debounce(fn, wait) {
+  var timer = null;
+  return function() {
+    clearTimeout(timer);
+    timer = setTimeout(() => {
+      fn();
+    }, wait);
+  };
+}
+```
+
 # ==运算符判断相等的流程是怎样的
 
 1. 如果两个值类型相同，按照===进行比较。
