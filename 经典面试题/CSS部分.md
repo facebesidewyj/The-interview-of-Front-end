@@ -161,7 +161,8 @@ Flash Of Unstyle Content：页面闪烁，样式表加载问题。
     }
 }
 ```
-# 写出一个div元素1s内从left:0过渡到left:500px
+
+# 写出一个 div 元素 1s 内从 left:0 过渡到 left:500px
 
 ```
 // div
@@ -169,7 +170,7 @@ Flash Of Unstyle Content：页面闪烁，样式表加载问题。
 
 // css
 .traffic-light {
-	position: relative
+    position: relative
     width: 50px;
     height: 50px;
     animation: move 1s linear;
@@ -301,5 +302,4 @@ display:block
 
 预处理器例如：LESS、Sass、Stylus，用来预编译 Sass 或 less，增强了 css 代码的复用性，还有层级、mixin、变量、循环、函数等，具有很方便的 UI 组件模块化开发能力，极大的提高工作效率。
 
-后处理器例如：PostCSS，通常被视为在完成的样式表中根据 CSS 规范处理 CSS，让其更有效；目前最常做的
-是给 CSS 属性添加浏览器私有前缀，实现跨浏览器兼容性的问题。
+后处理器例如：PostCSS，通常被视为在完成的样式表中根据 CSS 规范处理 CSS，让其更有效；目前最常做的是给 CSS 属性添加浏览器私有前缀，实现跨浏览器兼容性的问题。
