@@ -18,3 +18,15 @@
 流程：html 字符串->render 函数->vnode->真实 dom 节点
 
 el 与$mount 区别：当 Vue 实例中没有 el 属性时，则证明该实例还没挂载到 dom 上，如果要延迟挂载可以调用$mount 来进行手动挂载。
+
+# vue router 与 location.href 的区别
+
+vue router 是 hash 值改变，页面内跳转
+
+location.href 是页面跳转，页面刷新
+
+# React 与 Vue 的区别
+
+相似之处：都使用了 Virtual Dom 将真实 Dom 转化成虚拟 Dom。都支持组件化。
+
+区别：模板编写的区别，React 更适合大型项目，原生 APP 和 Web 端通吃。

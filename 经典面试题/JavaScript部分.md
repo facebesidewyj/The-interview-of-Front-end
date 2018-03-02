@@ -46,6 +46,18 @@ document.write 只能重绘整个页面
 
 innerHTML 可以重绘页面的一部分
 
+# let 与 var 的区别
+
+let：作用域为代码块，不允许重复声明，不会变量提升。
+
+var：作用域为函数内，允许重复声明，会变量提升。
+
+# Set 和 Map 结构
+
+Set：类似数组，成员值是唯一的，不可重复。
+
+Map：类似对象，键值对进行存储。
+
 # .call() 和 .apply() 的区别
 
 call():将参数依次传递给借用的方法做参数
@@ -158,6 +170,12 @@ var arr = [1, 1, 1, 2, 2, 3, 3, 4, 45, 5];
 var newArr = arr.filter((item, index, arr) => {
   return arr.indexOf(item) === index;
 });
+```
+
+# 一句话实现数组去重
+
+```javascript
+new Set([1, 1, 1, 2, 2, 3, 3, 4, 45, 5]);
 ```
 
 # JS 命名空间
@@ -286,14 +304,17 @@ function parseQueryString(url) {
   return json;
 }
 ```
-# 编写一个方法，返回1到100的任意整数
+
+# 编写一个方法，返回 1 到 100 的任意整数
 
 ```javascript
-function getNumber(){
-	return Math.floor(Math.random() * 100);
+function getNumber() {
+  return Math.floor(Math.random() * 100);
 }
 ```
+
 # 点击时弹出其索引
+
 题目：
 
 ```html
@@ -301,17 +322,23 @@ function getNumber(){
 <a href="#">二</a>
 <a href="#">三</a>
 ```
+
 答案：
 
 ```javascript
 var arr = document.getElementsByTagName('a');
 
-for(let i = 0; i < arr.length; i++) {
-	arr[i].addEventListener('click', () => {
-		alert(i);
-	}, false);
+for (let i = 0; i < arr.length; i++) {
+  arr[i].addEventListener(
+    'click',
+    () => {
+      alert(i);
+    },
+    false
+  );
 }
 ```
+
 # 求字符串的字节长度
 
 原理：将中文替换成两个英文字母，因为一个中文等于两个字节，一个英文等于一个字节
@@ -321,11 +348,12 @@ function getLength(str) {
 	return str.replace(/[^\u0000-\uffff/g, 'aa').length;
 }
 ```
+
 # 去除字符串前后的空格
 
 ```javascript
 function trim(str) {
-	return str.replace(/(^\s*)|(\s*$)/g, '');
+  return str.replace(/(^\s*)|(\s*$)/g, '');
 }
 ```
 
