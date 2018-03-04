@@ -210,16 +210,6 @@ transition 过渡
 
 以规则的网格阵列来进行页面排版布局，便于维护和开发。
 
-# 水平居中的实现方式
-
-1. center 标签
-2. margin：`margin: 0 auto;`
-3. 父元素设置 text-align:center，子元素实现居中。
-4. table+margin:`display:table; margin: 0 auto`
-5. 父元素设置 flex：`display:flex;justify-content:center;`子元素实现居中
-6. absolute+负 margin
-7. transform+relative:`position:relative;left:50%;transform:transateX(-50%);display:inline-block`
-
 # 居中的几种方案
 
 1. 水平居中
