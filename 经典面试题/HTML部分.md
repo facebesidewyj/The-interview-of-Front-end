@@ -141,7 +141,6 @@ Gecko 内核：firefox
    * `<footer>`和`<header>`底部和头部语义化标签。
    * `<datalist>`提醒用户输入，输入跟随标签。
    * `<nav>`导航标签。
-   * `<audio><video>`音频和视频
    * `<email><date>`表单控件
 
 3. 处理兼容性
