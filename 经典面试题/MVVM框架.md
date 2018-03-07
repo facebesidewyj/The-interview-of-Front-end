@@ -11,6 +11,10 @@
 
 实现方式：地址中添加#来欺骗浏览器，地址的改变是在进行页面内导航。
 
+# vue的虚拟Dom有什么好处
+
+virtual dom存在内存中，通过diff算法来与真实dom进行映射，diff算法定义在patch.js中。
+
 # vue 的挂载怎么实现的 el 和 $mount 有啥区别
 
 创建 Vue 实例的时候，Vue 的构造函数将自动运行`this._init`启动函数，启动函数最后一步执行`vm.$mount(vm.$options.el)`将实例挂载到 dom 上。

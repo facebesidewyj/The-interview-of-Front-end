@@ -252,6 +252,32 @@ transition 过渡
   border-color: transparent transparent red transparent;
 }
 ```
+# 用纯 CSS 创建一个加号
+
+```css
+div {
+    width: 150px;
+    height: 150px;
+}
+
+div::before {
+    position: absolute;
+    background-color: red;
+    content: "";
+    width: 150px;
+    height: 50px;
+    top: 50px;
+}
+
+div::after {
+    position: absolute;
+    background-color: red;
+    content: "";
+    width: 50px;
+    height: 150px;
+    left: 50px;
+}
+```
 
 # css 多列等高如何实现
 

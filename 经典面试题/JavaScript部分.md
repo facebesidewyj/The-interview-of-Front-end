@@ -423,6 +423,10 @@ bind 是将同一个事件处理函数添加到每一个匹配的元素上，cli
 
 delegate 只将事件添加到根元素上。
 
+# promise的三种状态
+
+pending(进行中)、fulfilled(已成功)和rejected(已失败)
+
 # 原生 js 实现 jQuery 的 on 函数
 
 封装 addEventListener，判断是否兼容 IE，不兼容就封装 attachEvent，多个事件需要遍历事件循环，伪代码：
@@ -447,6 +451,49 @@ for (var i = 1; i < 100; i++) {
 }
 console.log(res);
 ```
+
+# 实现add(1)(2)最后返回3
+
+```javascript
+function add(num1) {
+    return function(num2) {
+        return num1 + num2;
+    }
+}
+```
+# 斐波那契数列
+
+
+```javascript
+function fib(n) {
+    if (n <= 2) {
+        return 1;
+    }
+    return fib(n - 1) + fib(n - 2);
+}
+```
+# 斐波那契数列优化
+
+
+```javascript
+// 缓存数组，存放之前的值
+var arr = [];
+
+function fib(n) {
+    if (n <= 2) {
+        return 1;
+    }
+
+    if (arr[n]) {
+        return arr[n];
+    } else {
+        const res = fib(n - 1) + fib(n - 2);
+        arr[n] = res;
+        return res;
+    }
+}
+```
+
 
 # 以下代码输出什么？
 
