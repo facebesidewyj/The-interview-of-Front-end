@@ -345,7 +345,7 @@ for (let i = 0; i < arr.length; i++) {
 
 ```javascript
 function getLength(str) {
-	return str.replace(/[^\u0000-\uffff/g, 'aa').length;
+	return str.replace(/[^\u0000-\uffff]/g, 'aa').length;
 }
 ```
 
