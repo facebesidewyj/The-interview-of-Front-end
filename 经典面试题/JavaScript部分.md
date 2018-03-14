@@ -123,7 +123,7 @@ function parseInt(str) {
 }
 ```
 
-# es6 新增里哪些新功能
+# es6 中新增了哪些新功能
 
 箭头函数、模块化、类的声明、reflect、块级作用域、promise 实现
 
