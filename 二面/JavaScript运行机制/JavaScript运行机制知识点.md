@@ -22,6 +22,7 @@ js的执行机制
 1. setTimeout和setInterval
 2. DOM事件，注册事件时
 3. ES6中的Promise
+4. AJAX请求
 
 # 放入异步任务队列的时机。
 
