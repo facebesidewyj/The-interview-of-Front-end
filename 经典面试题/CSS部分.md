@@ -55,14 +55,14 @@ visibility 的 collapse 属性：用在非表格元素上将与 display:none 效
 
 # CSS 伪元素和伪类
 
-伪元素：
+伪类：
 
 1. :required 选中具有 required 属性的元素
 2. :optional 选中不具有 require 属性的元素
 3. :valid 通过验证规则时触发
 4. :invalid 没通过验证规则时触发
 
-伪类:
+伪元素:
 
 1. ::after 创建一个伪元素，作为以选中元素的最后一个子元素
 2. ::before 创建一个伪元素，作为以选中元素的第一个子元素
