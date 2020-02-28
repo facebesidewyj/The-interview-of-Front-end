@@ -73,3 +73,30 @@ HTTP1.1 版本是支持持久化连接的，非 keep-alive 模式时，每个请
 * HTTP1.x每一个请求都会建立一个链接，HTTP2实现了多路复用多个请求共享一个TCP链接
 * HTTP2对header进行了缓存和压缩
 * HTTP2可以进行服务端主动推送
+
+# CORS机制
+
+* 需要浏览器和服务器同时支持
+
+* 浏览器将CORS请求分为两类：
+
+  * 简单请求：请求方法为GET、POST、HEAD，并且请求头不能超出以下几种：Accept、Accept-Language、Content-Language、Last-Event-ID和Content-Type只能为：application/x-www-form-urlencoded、multipart/form-data、text/plain
+
+  * 非简单请求：请求方法为PUT或DELETE，或者请求头Content-Type为application/json
+
+* 对于简单请求：
+
+  * 浏览器直接发出CORS请求，会在请求头中增加Origin字段，用来标识请求来自哪个源
+
+  * 如果指定的Origin，不在服务器的许可范围内，服务器会返回一个正常的HTTP响应（状态码有可能是200），但是响应头里没有Access-Control-Allow-Origin字段，浏览器发现缺少Access-Control-Allow-Origin，就会抛出一个错误（可以被XMLHttpRequest的onerror捕获到）
+
+  * 如果指定的Origin，在服务器的许可范围内，服务器的响应头中会有增加三个字段：Access-Control-Allow-Origin、Access-Control-Allow-Credentials和Access-Control-Expose-Headers
+
+* 对于非简单请求：
+  * 浏览器会在正式通信之前先发出Options预检请求，预检请求的请求头会增加Origin、Access-Control-Request-Method和Access-Control-Request-Headers这三个字段
+  * 如果预检请求失败，会返回一个正常的HTTP请求，但是没有任何CORS相关字段，浏览器发现没有CORS相关字段，就会抛出一个错误（可以被XMLHttpRequest的onerror捕获到）
+  * 预检请求成功，就会跟简单请求一样来通信
+
+* Options请求优化
+  * 将非简单请求变为简单请求
+  * 设置Access-Control-Max-Age字段，浏览器会根据这个请求头字段来判断OPTIONS预检请求的响应结果要缓存多久（对于相同请求来说，在指定时间内，只会触发一次预检请求）
