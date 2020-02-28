@@ -26,6 +26,10 @@ delete:删除资源
 
 head:获得报文首部
 
+options:预检请求
+
+patch:对资源进行部分修改，属于对put请求的补充
+
 # GET 与 POST 的区别。
 
 1. get 在浏览器回退时是无害的，而 post 会再次请求。
