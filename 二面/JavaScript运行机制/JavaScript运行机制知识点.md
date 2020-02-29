@@ -27,3 +27,11 @@ js的执行机制
 # 放入异步任务队列的时机。
 
 异步任务中的函数注册完成，并且执行了初始化的一些操作，以AJAX为例，当AJAX发送请求完成，success函数就进入了异步任务队列，等待主线程任务执行完毕，然后执行success回调函数。
+
+# 宏任务与微任务
+
+* 浏览器宏任务：I/O操作、setTimeout、setInterval、requestAnimationFrame
+* 浏览器微任务：MutationObserver、Promise.then catch finally
+* JS第一个要执行的宏任务式Script标签，之后会执行当前所有微任务
+* 在当前微任务没有执行完成时，是不会执行下一个宏任务的
+* 所有会进入的异步都是指的事件回调中的那部分代码
