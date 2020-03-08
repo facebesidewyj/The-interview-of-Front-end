@@ -53,3 +53,29 @@ Block Formatting Context 边距重叠解决方案
 1. 自适应两栏布局
 2. 清除浮动
 3. 防止垂直 margin 重叠
+
+# CSS 层叠上下文
+
+* 层叠上下文：我们可以理解为一个元素含有层叠上下文，我们就认为这个元素在 Z 轴上“高人一等”。
+  
+  > Z 轴指的是用户与浏览器屏幕之间一条看不见的垂直线
+  
+* 层叠水平：指在同一个层叠上下文中元素在 Z 轴上的显示顺序
+
+* 层叠上下文的创建：
+  * 默认创建：根元素 html
+  * 配合 z-index 触发创建：
+    *  z-index不为auto的绝对/相对/固定定位元素，会创建层叠上下文
+    * 被flex布局嵌套的子元素，设置z-index会创建层叠上下文
+  * 不需要配合z-index触发创建：
+    * opacity小于1的元素
+    * transform不为none的元素
+    * perspective不为none的元素
+    * 被filter修饰事元素
+  
+* 同一层叠上下文的层叠水平：正z-inde元素 > z-index为auto或z-inde为0或不依赖z-index的元素 > inline或inline-block元素 > float元素 > block元素 >  负 z-index元素 > background/border元素
+
+* 比较两个dom的显示顺序：
+
+  * 如果在相同层叠上下文中，按层叠水平来比较
+  * 如果不在相同层叠上下文中，找到共同的祖先层叠上下文（有可能是html元素），再根据层叠水平比较
