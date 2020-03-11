@@ -1,10 +1,3 @@
-# 了解 MVVM 框架吗？
-
-注意事项：
-
-1. 收住优点，攒着往下说，开启引导模式
-2. 低调谨慎
-
 # 谈谈你对 MVVM 的认识？
 
 注意事项：
@@ -88,7 +81,7 @@ Vue中的依赖收集有Dep订阅者这个类来实现的，它的主要作用�
 
 * 在Dep类内部创建一个缓存队列subs，用来存放所有被依赖的Watcher观察者。
 * 每一次render之后，会触发响应式对象的Getter函数。
-* 在Getter函数中会把当前Watcher对象push到Dep的subs队列中
+* 在Getter函数中会把当前Watcher对象（(Watcher有id标识避免重复)）push到Dep的subs队列中
 * 当需要更新视图，也就是Setter函数被触发时，会执行Dep类中的notify方法，执行所有Watcher的update方法更新视图
 
 # 使用了什么设计模式？
@@ -106,6 +99,29 @@ Vue中的依赖收集有Dep订阅者这个类来实现的，它的主要作用�
 * 主体思想一致
 * 观察者模式中，通常观察者和被观察者知道双方的存在，并在发生变化后主动通知
 * 发布-订阅模式中，发布者和订阅者不知道双方的存在，通过中间事件队列来处理，订阅者属于被动通知
+
+# VNode解析
+
+* Virtual DOM：一棵以JS对象(VNode节点)作为基础的树，用对象属性来描述节点，实际上它只是对一层对真实DOM的抽象
+
+* VNode：本质上就是JS对象，这个对象上有一些能正确直观的描述清楚当前的节点信息的属性。
+
+  ```javascript
+  class VNode {
+    constructor(tag, data, children, text, elm) {
+      // 标签信息
+      this.tag = tag
+      // 数据信息
+      this.data = data
+      // 子节点信息
+      this.children = children
+      // 文本信息
+      this.text = text
+      // 真实的DOM节点
+      this.elm = elm
+    }
+  }
+  ```
 
 # 生命周期是什么？
 
@@ -137,21 +153,35 @@ mounted ： 在这发起后端请求，拿回数据，配合路由钩子做一�
 
 beforeDestory： 你确认删除 XX 吗？ destoryed ：当前组件已被删除，清空相关内容
 
-# 有看过源码吗？
-
-Observer 的角色：new Vue()实例时，调用了 Observer，遍历所有的 data 数据，并且使用 Object.defineProperty()拦截每个数据，当读取数据时，判断是否为数据添加观察者；当数据变化时通知观察者。
-
-Observer 调用完之后要实例化 Watcher，Watcher 会调一下 get 函数，get 函数检测到 watcher 对象有值，就会把 watcher 放到观察者列表。
-
-在编译时，将真实的 DOM 转移到 Fragment（DOM 片段）对象上，通过 complie 对指令的识别，并生成指令描述对象，来进行相应的处理。
-
-# VNode解析
-
-# template模版的编译过程
-
 # diff算法执行过程
 
 # nextTick原理
+
+nextTick函数通过传入一个回调函数callback，这个callback会被存到一个队列中，当render结束后在下一个tick时触发队列中的所有函数。
+
+Vue源码中根据兼容性分别用setTimeout、setImmediate、Promise等方式在事件队列中创建了一个异步任务，在当前调用栈执行完毕后才去执行这个异步任务。[next-tick](https://github.com/vuejs/vue/blob/dev/src/core/util/next-tick.js#L90)
+
+```javascript
+let callbacks = []
+let pending = false
+function nextTick(cb) {
+  callbacks.push(cb)
+  
+  if(!pending) {
+    pending = true
+    setTimeout(flushCallbacks, 0)
+  }
+}
+
+function flushCallbacks() {
+  pending = false
+  const copies = callbacks.slice(0)
+  callbacks.lenght = 0
+  for(let i = 0; i < copies.length; i++) {
+    copies[i]()
+  }
+}
+```
 
 # Vuex的工作原理
 
