@@ -185,3 +185,27 @@ function flushCallbacks() {
 
 # Vuex的工作原理
 
+* Vuex介绍：Vuex是一个专门为Vue设计，用于对Vue程序进行状态管理的库，它借鉴了flux、redux的基本思想，将共享的数据抽离到全局，以一个单例Store进行管理，同时利用Vue的响应式机制对状态进行管理和更新。
+  * State：存放数据，本质上是一个Map对象
+  * Mutation：同步操作，修改State必须通过Mutation进行操作，实现了单向数据流，本质上是一个Map对象
+  * Action：异步接口走Action，无法直接操作State，必须通过Mutation，本质上是一个Map对象
+
+* Vuex工作原理：Vuex借鉴了MVC的架构模式，使内部数据形成了一个单向数据流，方便维护。
+
+  * 首先Vuex提供了一个install方法供Vue注册插件时调用，install函数会将vuexInit(Vuex初始化)方法挂载到Vue的beforeCreated钩子中，并保存了Vue对象的引用
+
+  * 我们知道使用Vuex需要在new Vue()时传入store，所以vuexInit在初始化执行时，会从Vue的`$options`中获取store并赋值给`this.$store`，如果取不到，会取父节点的`$store`，这样就保证了我们能在Vue实例中直接通过`this.$store`获取Vuex中的数据。
+
+  * 响应式实现：在初始化Store时，在Vuex中Store的构造函数中，会初始化调用new Vue()，并且把state对象的引用赋值给Vue.data.$$state，这样Vuex中的state就被Vue中的Dep依赖收集了。当state被修改时，Dep会通知Watcher进行update，实现响应式绑定。
+
+    ```javascript
+    constructor() {
+      this._vm = new Vue({
+        data: {
+          $$state: state
+        }
+      })
+    }
+    ```
+
+> Vuex利用一个单例对象的引用地址，绑定到Vue的data属性中，实现数据的响应式管理
