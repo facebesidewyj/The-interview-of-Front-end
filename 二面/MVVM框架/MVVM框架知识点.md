@@ -28,7 +28,7 @@ MVVM 采用双向绑定，View 的变动自动反应在 ViewModel，反之亦然
   * 将AST生成渲染VNode所需要的render function字符串
 * 响应式：render function生成的VNode被渲染时会执行Getter函数进行**依赖收集**。当修改data对象中的值时会触发Setter函数来更新视图实现双向绑定：
   * 依赖收集：目的是将Watcher观察者对象存放到当前闭包中的Dep订阅者的subs队列中
-  * 双向绑定：目的是通知订阅者Dep的subs队列中的每一个Watcher观察者来执行update。
+  * 双向绑定：目的是通知订阅者Dep的subs队列中的每一个Watcher观察者来执行update（nextTick异步更新）。
 * Virtual DOM：render function字符串会转化成VNode对象（JS对象），VNode是对真实DOM的一层抽象
 * 视图更新：在更新视图时会进行新老VNode的diff算法，并把改动的差异更新到DOM上
   * patchVNode：执行diff算法对比出差异
@@ -81,8 +81,8 @@ Vue中的依赖收集有Dep订阅者这个类来实现的，它的主要作用�
 
 * 在Dep类内部创建一个缓存队列subs，用来存放所有被依赖的Watcher观察者。
 * 每一次render之后，会触发响应式对象的Getter函数。
-* 在Getter函数中会把当前Watcher对象（(Watcher有id标识避免重复)）push到Dep的subs队列中
-* 当需要更新视图，也就是Setter函数被触发时，会执行Dep类中的notify方法，执行所有Watcher的update方法更新视图
+* 在Getter函数中会把当前Watcher对象（Watcher有id标识避免重复）push到Dep的subs队列中
+* 当需要更新视图，也就是Setter函数被触发时，会执行Dep类中的notify方法，执行所有Watcher的update方法更新视图（nextTick异步更新）
 
 # 使用了什么设计模式？
 
@@ -157,7 +157,9 @@ beforeDestory： 你确认删除 XX 吗？ destoryed ：当前组件已被删除
 
 # nextTick原理
 
-nextTick函数通过传入一个回调函数callback，这个callback会被存到一个队列中，当render结束后在下一个tick时触发队列中的所有函数。
+nextTick函数通过传入一个回调函数callback，这个callback会被存到一个队列中，这样会当render结束后在下一个tick时触发队列中的所有函数。
+
+本质上，Vue的data变化时会调用nextTick函数，并把Watcher的update函数当成回调函数传入nextTick函数，nextTick创建了一个异步任务（优先微任务），在调用栈执行完毕后，批量执行被传入的回调函数。所以当我们在使用`this.$nexxTick(()=>{// TODO})`时，并不会立即执行，而是传入了一个回调函数，在调用栈执行完毕后（宏任务），再去触发。
 
 Vue源码中根据兼容性分别用setTimeout、setImmediate、Promise等方式在事件队列中创建了一个异步任务，在当前调用栈执行完毕后才去执行这个异步任务。[next-tick](https://github.com/vuejs/vue/blob/dev/src/core/util/next-tick.js#L90)
 
