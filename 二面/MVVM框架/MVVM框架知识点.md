@@ -155,6 +155,18 @@ beforeDestory： 你确认删除 XX 吗？ destoryed ：当前组件已被删除
 
 # diff算法执行过程
 
+diff算法是通过同层的树节点进行比较，而非对树进行逐层搜索遍历的方式，所以复杂的只有O(n)，是一种相当高效的算法。
+
+patch函数基本执行过程：
+
+* patch函数接收三个参数，分别是新老VNode节点和父元素
+* 当老VNode节点不存在时，直接把新VNode节点批量添加到父元素上
+* 当新VNode节点不存在时，批量删除老VNode节点
+* 如果新老VNode存在并且相等，则进行patchNode，做新老VNode节点diff对比，并更新
+* 如果新老VNode存在并且不相等，则删除老VNode节点，添加新VNode节点
+
+> 注：更新DOM用到了nodeOps类用来做一层函数封装，区分平台，统一api
+
 # nextTick原理
 
 nextTick函数通过传入一个回调函数callback，这个callback会被存到一个队列中，这样会当render结束后在下一个tick时触发队列中的所有函数。
