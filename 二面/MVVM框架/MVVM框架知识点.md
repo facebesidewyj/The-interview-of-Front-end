@@ -223,3 +223,17 @@ function flushCallbacks() {
     ```
 
 > Vuex利用一个单例对象的引用地址，绑定到Vue的data属性中，实现数据的响应式管理
+
+# Vue-Router工作原理
+
+实例化VueRouter时的mode参数控制路由的实现模式，在浏览器中实现路由的方式有三种：
+
+* 利用url中hash（默认）：利用浏览器url中#后面的hash值变化，不会引起页面刷新的特性，同时监听hashchange事件，实现单页面跳转。
+* 利用H5中的history：利用H5的新特性history栈的pushState、replaceState和监听popstate事件，实现单页面跳转。
+* abstract模式：用的较少，node环境或weex中会用到。
+
+hash模式和history模式的区别：
+
+* pushState设置的新url是可以与当前url同源的任意url，而hash只可修改#后的部分
+* pushState设置的新url可以与当前url相同，并且也会添加记录到栈中，而hash设置相同的值不会添加到记录栈中
+* pushState可以通过stateObject添加任意类型的数据到记录中，而hash只能使用字符串
