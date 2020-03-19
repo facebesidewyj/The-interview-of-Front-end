@@ -84,6 +84,23 @@ Vue中的依赖收集有Dep订阅者这个类来实现的，它的主要作用�
 * 在Getter函数中会把当前Watcher对象（Watcher有id标识避免重复）push到Dep的subs队列中
 * 当需要更新视图，也就是Setter函数被触发时，会执行Dep类中的notify方法，执行所有Watcher的update方法更新视图（nextTick异步更新）
 
+# Vue组件通信
+
+1. 父子组件通信：
+   * props和emit：实现语法糖`v-model`
+   * `$parent`和`$children`：访问组件的数据和方法
+   * `$listeners`和`.sync`
+2. 兄弟组件通信：通过`this.$parent.$children`进行查找实现
+3. 跨多级组件通信：`provide`和`inject`实现
+4. 任意通信：Vuex或Event Bus
+
+# computed与watch区别
+
+* computed是计算属性，依赖其他data中的其他数据得出计算的值，并且具有缓存，只有当计算的值变化时才会返回
+* watch是监听到值的变化就会返回，在回调中执行一些逻辑操作，比如请求接口等
+
+> computed和watch都支持对象写法，扩展更多功能
+
 # 使用了什么设计模式？
 
 注意事项：
