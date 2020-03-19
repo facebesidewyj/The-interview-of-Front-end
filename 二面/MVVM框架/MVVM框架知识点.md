@@ -12,7 +12,7 @@ Model(服务器中的数据实体),View(视图),ViewModel(核心枢纽 Vue.js)
 
 3. 对比 MVVM 和 MVC
 
-MVC 是单向通信。
+MVC 是单向通信，控制器C承担的任务巨大，不利于维护。
 
 MVVM 采用双向绑定，View 的变动自动反应在 ViewModel，反之亦然。
 
@@ -70,6 +70,8 @@ MVVM 采用双向绑定，View 的变动自动反应在 ViewModel，反之亦然
 * Object.defineProperty 与 reflect.defineProperty 的区别：
 
   Object.defineProperty(obj, name, descriptor)在无法定义属性时，会抛出一个错误，而 Reflect.defineProperty(obj, name, descriptor)则会返回 false。
+
+> 对于数组的操作和对象新增属性，Object.defineProperty并不能拦截到这些操作，对于数组来说，Vue重写了Array的内部函数实现对数组的响应式拦截。对于对象新增属性来说，Vue提供了set函数来手动执行双向绑定
 
 # Vue中的依赖收集
 
@@ -243,10 +245,12 @@ function flushCallbacks() {
 
 # Vue-Router工作原理
 
-实例化VueRouter时的mode参数控制路由的实现模式，在浏览器中实现路由的方式有三种：
+Vue-Router提供install函数供Vue注册插件，在install函数中会获取传入的router对象并对当前route做响应式处理，监听route变化，渲染对应的组件UI。同时将Vue-Router的生命周期钩子函数混入到Vue.config中。
+
+在实例化Vue-Router时的mode参数控制路由的实现模式，在浏览器中实现路由的方式有三种：
 
 * 利用url中hash（默认）：利用浏览器url中#后面的hash值变化，不会引起页面刷新的特性，同时监听hashchange事件，实现单页面跳转。
-* 利用H5中的history：利用H5的新特性history栈的pushState、replaceState和监听popstate事件，实现单页面跳转。
+* 利用H5中的history：利用H5的新特性history栈的pushState、replaceState改变URL，同样不会引起刷新，但是会更新浏览器的历史记录，监听popstate事件，实现单页面跳转。
 * abstract模式：用的较少，node环境或weex中会用到。
 
 hash模式和history模式的区别：
@@ -254,3 +258,4 @@ hash模式和history模式的区别：
 * pushState设置的新url是可以与当前url同源的任意url，而hash只可修改#后的部分
 * pushState设置的新url可以与当前url相同，并且也会添加记录到栈中，而hash设置相同的值不会添加到记录栈中
 * pushState可以通过stateObject添加任意类型的数据到记录中，而hash只能使用字符串
+* history模式需要服务器支持，把所以路由重定向到根页面，url上不会有#，hash模式url上有#号
