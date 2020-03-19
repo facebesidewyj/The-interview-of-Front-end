@@ -44,3 +44,11 @@ js的执行机制
 * JS第一个要执行的宏任务式Script标签，之后会执行当前所有微任务
 * 在当前微任务没有执行完成时，是不会执行下一个宏任务的
 * 所有会进入的异步都是指的事件回调中的那部分代码
+
+# Promise与Async/await区别
+
+* Promise本质是触发执行回调函数，相比于async/await来说使用起来更加繁琐
+* async/await的错误处理try/catch可以捕获同步或异步错误，Promise的catch只能捕获内部错误
+* async/await的中间值处理更加优雅，调试更加方便
+* async/await比Promise性能好，async/await在底层优化了堆栈处理，因为await cb()会暂停async的函数处理，而promise.then(cb)是把回调函数添加到了回调链中，当发生异常时，Promise要按回调链去寻址，而async/await可以直接访问内存，性能更优。
+
