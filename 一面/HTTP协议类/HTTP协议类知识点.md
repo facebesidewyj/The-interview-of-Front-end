@@ -65,7 +65,7 @@ HTTP1.1 版本是支持持久化连接的，非 keep-alive 模式时，每个请
 
 在 HTTP1.1 版本持久连接的情况下，请求和响应都是打包完成的，客户端一次发送多个请求，服务器一次响应多个请求。 只有 get 和 head 请求支持管线化。
 
-# HTTP、HTTPS、HTTP2对比。
+# HTTP、HTTPS、HTTP2、HTTP3对比。
 
 * HTTP协议运行在TCP之上，HTTPS协议运行在SSL/TLS之上，SSL/TLS之上协议运行在TCP之上
 * HTTP协议默认端口80，HTTPS协议默认端口443
@@ -73,6 +73,7 @@ HTTP1.1 版本是支持持久化连接的，非 keep-alive 模式时，每个请
 * HTTP1.x每一个请求都会建立一个链接，HTTP2实现了多路复用多个请求共享一个TCP链接
 * HTTP2对header进行了缓存和压缩
 * HTTP2可以进行服务端主动推送
+* HTTP3基于UDP实现了QUIC协议，减少了建立连接的握手次数，减少HTTP2丢包之后，再次建立连接的问题
 
 # HTTPS加密原理
 

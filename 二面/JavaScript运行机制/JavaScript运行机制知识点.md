@@ -165,3 +165,7 @@ class Promise {
 * async/await的中间值处理更加优雅，调试更加方便
 * async/await比Promise性能好，async/await在底层优化了堆栈处理，因为await cb()会暂停async的函数处理，而promise.then(cb)是把回调函数添加到了回调链中，当发生异常时，Promise要按回调链去寻址，而async/await可以直接访问内存，性能更优。
 
+# Promise.all如何控制并发
+
+
+
