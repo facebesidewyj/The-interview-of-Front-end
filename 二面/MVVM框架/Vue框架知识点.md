@@ -216,6 +216,10 @@ function flushCallbacks() {
 }
 ```
 
+# keep-alive实现原理
+
+
+
 # Vuex的工作原理
 
 * Vuex介绍：Vuex是一个专门为Vue设计，用于对Vue程序进行状态管理的库，它借鉴了flux、redux的基本思想，将共享的数据抽离到全局，以一个单例Store进行管理，同时利用Vue的响应式机制对状态进行管理和更新。
@@ -259,3 +263,8 @@ hash模式和history模式的区别：
 * pushState设置的新url可以与当前url相同，并且也会添加记录到栈中，而hash设置相同的值不会添加到记录栈中
 * pushState可以通过stateObject添加任意类型的数据到记录中，而hash只能使用字符串
 * history模式需要服务器支持，把所以路由重定向到根页面，url上不会有#，hash模式url上有#号
+
+# 如何批量引入组件
+
+* 借助webpack的require.context函数获取一个特定的上下文
+* 暴露一个根文件，根文件中引入并注册所有需要的组件
