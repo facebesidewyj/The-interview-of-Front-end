@@ -218,7 +218,18 @@ function flushCallbacks() {
 
 # keep-alive实现原理
 
+1. 简介：keep-alive是一个Vue的内置抽象组件，不会被当成DOM渲染，它可以将不活动的组件保存内存中，而是在组件切换时将其销毁。一般适用于一些低频交互组件或只保证一次状态的不可变组件。
 
+2. 钩子函数：activated表示激活，deactivated表示非激活
+
+3. 实现原理：
+
+   * 在组件的created函数中会声明一个cache对象，用来作为缓存容器，保存VNode节点
+   * destroyed函数会在组件被销毁时清空所有缓存
+   * render函数中获取子组件的名称，并匹配include和exclude属性，匹配成功将子组件的VNode添加到缓存容器中，匹配失败直接返回子组件的VNode节点
+   * 使用watch来监听include和exclude两个属性，在其变化时遍历缓存中的所有项，将名称不匹配的子组件销毁
+
+   > Keep-alive 组件的缓存基于VNode节点而不是DOM结构，它将满足条件的VNode缓存起来，在渲染时直接从缓存对象中去取
 
 # Vuex的工作原理
 
