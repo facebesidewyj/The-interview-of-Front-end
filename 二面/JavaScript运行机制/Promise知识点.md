@@ -4,6 +4,8 @@ Promise是一种异步编程的解决方案，遵循[Promises/A+规范](https://
 
 Promise的实现用到了观察者模式，内部维护了一个状态机和回调函数队列，当调用then方法时，Promise会将传入的函数注册到回调队列中，然后在状态改变时批量执行。
 
+> **Promise里的then方法是用来注册回调函数的，真正的执行是在resolve函数和reject函数中**。
+
 基础Promise示例：
 
 ```javascript
@@ -119,3 +121,29 @@ class Promise {
 * async/await比Promise性能好，async/await在底层优化了堆栈处理，因为await cb()会暂停async的函数处理，而promise.then(cb)是把回调函数添加到了回调链中，当发生异常时，Promise要按回调链去寻址，而async/await可以直接访问内存，性能更优。
 
 # Promise.all如何控制并发
+
+所谓控制Promise.all的并发数量，实际就是控制Promise实例化的个数，async-pool这个库对其进行了实现：
+
+```javascript
+async function asyncPool(limit, list, promiseFn) {
+  const ret = []
+  const executing = []
+  for(item of list) {
+    const p = Promise.resolve().then(() => {
+      promiseFn(item)
+    })
+    ret.push(p)
+    const e = p.then(() => {
+      executing.splice(executing.indexof(e), 1)
+    })
+    executing.push(e)
+    
+    while(executing.length >= limit) {
+      await Promise.race(executing)
+    }
+    
+    return Promise.all(ret)
+  }
+}
+```
+
