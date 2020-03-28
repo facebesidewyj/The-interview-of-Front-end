@@ -9,108 +9,188 @@ Promise的实现用到了观察者模式，内部维护了一个状态机和回�
 基础Promise示例：
 
 ```javascript
-class Promise {
-  callbacks = [];
-  state = 'pending';//增加状态
-  value = null;//保存结果
+export default class YPromise {
   constructor(fn) {
-    fn(this._resolve.bind(this), this._reject.bind(this));
-  }
-  then(onFulfilled, onRejected) {
-    return new Promise((resolve, reject) => {
-      this._handle({
-        onFulfilled: onFulfilled || null,
-        onRejected: onRejected || null,
-        resolve: resolve,
-        reject: reject
-      });
-    });
-  }
-  catch(onError) {
-    return this.then(null, onError);
-  }
-  finally(onDone) {
-    if (typeof onDone !== 'function') return this.then();
+    this.state = 'pending'
+    this.data = null
+    this.resolveCallbackList = []
+    this.rejectCallbackList = []
 
-    let Promise = this.constructor;
-    return this.then(
-      value => Promise.resolve(onDone()).then(() => value),
-      reason => Promise.resolve(onDone()).then(() => { throw reason })
-    );
-  }
-  static resolve(value) {
-    if (value && value instanceof Promise) {
-      return value;
-    } else if (value && typeof value === 'object' && typeof value.then === 'function') {
-      let then = value.then;
-      return new Promise(resolve => {
-        then(resolve);
-      });
+    const resolve = function(value) {
+      setTimeout(() => {
+        if (this.state === 'pending') {
+          this.state = 'resolve'
+          this.data = value
 
-    } else if (value) {
-      return new Promise(resolve => resolve(value));
-    } else {
-      return new Promise(resolve => resolve());
-    }
-  }
-  static reject(value) {
-    if (value && typeof value === 'object' && typeof value.then === 'function') {
-      let then = value.then;
-      return new Promise((resolve, reject) => {
-        then(reject);
-      });
-
-    } else {
-      return new Promise((resolve, reject) => reject(value));
-    }
-  }
-  _handle(callback) {
-    if (this.state === 'pending') {
-      this.callbacks.push(callback);
-      return;
+          if (value instanceof Promise) {
+            value.then(
+              (val) => {
+                this.state = 'resolve'
+                this.data = val
+                this.resolveCallbackList.forEach((callback) => {
+                  callback(this.data)
+                })
+              },
+              (error) => {
+                this.state = 'reject'
+                this.data = error
+                this.rejectCallbackList.forEach((callback) => {
+                  callback(this.data)
+                })
+              }
+            )
+          } else {
+            this.state = 'resolve'
+            this.data = value
+            this.resolveCallbackList.forEach((callback) => {
+              callback(this.data)
+            })
+          }
+        }
+      }, 0)
     }
 
-    let cb = this.state === 'fulfilled' ? callback.onFulfilled : callback.onRejected;
-
-    if (!cb) {//如果then中没有传递任何东西
-      cb = this.state === 'fulfilled' ? callback.resolve : callback.reject;
-      cb(this.value);
-      return;
+    const reject = function(error) {
+      setTimeout(() => {
+        if (this.state === 'pending') {
+          this.state = 'reject'
+          this.data = error
+          this.rejectCallbackList.forEach((callback) => {
+            callback(error)
+          })
+        }
+      }, 0)
     }
-
-    let ret;
 
     try {
-      ret = cb(this.value);
-      cb = this.state === 'fulfilled' ? callback.resolve : callback.reject;
+      fn(resolve, reject)
     } catch (error) {
-      ret = error;
-      cb = callback.reject
-    } finally {
-      cb(ret);
+      reject(error)
     }
-
   }
-  _resolve(value) {
 
-    if (value && (typeof value === 'object' || typeof value === 'function')) {
-      var then = value.then;
-      if (typeof then === 'function') {
-        then.call(value, this._resolve.bind(this), this._reject.bind(this));
-        return;
+  then(onResolve, onReject) {
+    return new Promise((resolve, reject) => {
+      function handleResolve(value) {
+        try {
+          if (typeof onResolve !== 'function') {
+            resolve(value)
+          } else {
+            const res = onResolve(value)
+            if (res instanceof Promise) {
+              res.then(resolve, reject)
+            } else {
+              resolve(res)
+            }
+          }
+        } catch (err) {
+          resolve(err)
+        }
       }
-    }
 
-    this.state = 'fulfilled';//改变状态
-    this.value = value;//保存结果
-    this.callbacks.forEach(callback => this._handle(callback));
+      function handleReject(error) {
+        try {
+          if (typeof onReject !== 'function') {
+            reject(error)
+          } else {
+            const res = onReject(error)
+            if (res instanceof Promise) {
+              res.then(resolve, reject)
+            } else {
+              reject(res)
+            }
+          }
+        } catch (err) {
+          reject(err)
+        }
+      }
+
+      switch (this.state) {
+        case 'pending':
+          this.resolveCallbackList.push(handleResolve)
+          this.rejectCallbackList.push(handleReject)
+          break
+        case 'resolve':
+          handleResolve(this.data)
+          break
+        case 'reject':
+          handleReject(this.data)
+          break
+      }
+    })
   }
-  _reject(error) {
-    this.state = 'rejected';
-    this.value = error;
-    this.callbacks.forEach(callback => this._handle(callback));
+  catch(onReject) {
+    return this.then(null, onReject)
+  }
+
+  finally(callback) {
+    return this.then(
+      (value) => {
+        YPromise.resolve(callback()).then(() => {
+          return value
+        })
+      },
+      (reason) => {
+        YPromise.resolve(callback()).then(() => {
+          throw reason
+        })
+      }
+    )
+  }
+
+  static resolve(value) {
+    if (value instanceof Promise) {
+      return value
+    }
+    return new YPromise((resolve) => {
+      resolve(value)
+    })
+  }
+
+  static reject(error) {
+    return new YPromise((resolve, reject) => {
+      reject(error)
+    })
+  }
+
+  static all(promiseList) {
+    return new YPromise((resolve, reject) => {
+      let res = []
+      let count = 0
+      for (let i = 0; i < promiseList.length; i++) {
+        const promise = promiseList[i]
+        this.resolve(promise).then(
+          (value) => {
+            res[i] = value
+            count++
+            if (count === promiseList.length) {
+              resolve(res)
+            }
+          },
+          (error) => {
+            reject(error)
+          }
+        )
+      }
+    })
+  }
+
+  static race(promiseList) {
+    return new YPromise((resolve, reject) => {
+      for (const promise of promiseList) {
+        this.resolve(promise).then(
+          (value) => {
+            resolve(value)
+          },
+          (error) => {
+            reject(error)
+          }
+        )
+      }
+    })
   }
 }
+
 ```
 
 # Promise与Async/await区别
@@ -122,19 +202,19 @@ class Promise {
 
 # Promise.all如何控制并发
 
-所谓控制Promise.all的并发数量，实际就是控制Promise实例化的个数，async-pool这个库对其进行了实现：
+所谓控制Promise.all的并发数量，实际就是控制Promise实例化的个数，创建一个执行数组executing缓存正在执行的promise实例，遍历要执行Promise.all的Promise数组，并添加调用链.then()，在触发后控制执行数组executing的长度，当循环结束后，所有的Promise数组的状态都不是pending了，直接调用Promise.all进行输出。async-pool这个库对其进行了实现：
 
 ```javascript
 async function asyncPool(limit, list, promiseFn) {
-  const ret = []
-  const executing = []
-  for(item of list) {
+  let ret = []
+  let executing = []
+  for(const item of list) {
     const p = Promise.resolve().then(() => {
-      promiseFn(item)
+      return promiseFn(item)
     })
     ret.push(p)
     const e = p.then(() => {
-      executing.splice(executing.indexof(e), 1)
+      return executing.splice(executing.indexof(e), 1)
     })
     executing.push(e)
     
