@@ -25,6 +25,14 @@ box-sizing 属性，属性值为 border-box 为 IE 盒模型，属性值为 cont
 4. 获取元素相对于视口的位置，来计算出高度：Element.getBoundingClientRect();该方法返回一个对象，包含一组矩形集合。
 5. 返回元素的可见宽度和高度，包括 padding 和 border：Element.offsetWidth;Element.offsetHeight;
 
+# offsetTop和scrollTop和scrollHeight分别代表什么
+
+* offsetTop：只读属性，返回当前元素距离其父元素顶部内边距距离的位置
+* scrollTop：可以获取或设置一个元素在垂直方向上的滚动像素
+* scrollHeight：只读属性，表示一个元素生成的可滚动高度
+
+>  这些值获取时需要时时计算，会引起重排
+
 # 根据盒模型解释边距重叠概念
 
 两个或多个盒子的垂直相邻边界会发生重合，形成单一边界的情况。
@@ -79,3 +87,13 @@ Block Formatting Context 边距重叠解决方案
 
   * 如果在相同层叠上下文中，按层叠水平来比较
   * 如果不在相同层叠上下文中，找到共同的祖先层叠上下文（有可能是html元素），再根据层叠水平比较
+
+# 使用flex需要注意的点
+
+* flex-grow：元素的放大比例，默认为0
+* flex-shrink：元素的缩小比例，默认为1，空间不足将会等比缩小
+* flex-basis：元素占主轴的空间，默认为auto
+* order：定义元素的排列顺序，越小越靠前
+* align-self：元素自身的对齐方式，可覆盖align-item属性
+
+> flex属性是flex-grow、flex-shrink、flex-basis的缩写
