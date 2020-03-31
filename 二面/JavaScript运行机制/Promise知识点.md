@@ -19,9 +19,6 @@ export default class YPromise {
     const resolve = function(value) {
       setTimeout(() => {
         if (this.state === 'pending') {
-          this.state = 'resolve'
-          this.data = value
-
           if (value instanceof Promise) {
             value.then(
               (val) => {
@@ -224,6 +221,32 @@ async function asyncPool(limit, list, promiseFn) {
     
     return Promise.all(ret)
   }
+}
+```
+
+# Promise的retry实现原理
+
+Promise的重试策略，其核心思想是使用递归来实现
+
+```javascript
+Promise.prototype.retry = function(fn, times, delay) {
+  return new Promise((resolve, reject) => {
+    let error = null
+    function attempt() {
+      if(times === 0) {
+        reject(error)
+      } else {
+        fn.then(resolve).catch((err) => {
+          times--
+          error = err
+          setTimeout(() => {
+            attempt()
+          }, delay)
+        })
+      }
+    }
+    attempt
+  })
 }
 ```
 
