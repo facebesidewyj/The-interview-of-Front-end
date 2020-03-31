@@ -461,6 +461,24 @@ function add(num1) {
     }
 }
 ```
+
+# 实现add(1)(2)(3)(4)最后返回10
+考察点：闭包、函数柯里化、console.log(function)调用function.toString()方法
+
+```javascript
+function add(num) {
+  let res = num
+  let fn = function(val) {
+    res = res + val
+    return fn
+  }
+  fn.toString = function() {
+    return res
+  }
+  return fn
+}
+```
+
 # 斐波那契数列
 
 
