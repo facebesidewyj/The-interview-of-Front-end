@@ -1,24 +1,6 @@
-# JS 内置对象
-
-Object 是 JS 中所有对象的父对象。
-
-Function、Arguments、Math、Date、Error、Array、String、Number 等
-
-# JS 中有几种类型的值
-
-栈：原始数据类型
-
-堆：引用数据类型
-
-ps：引用类型的地址存储在栈中
-
 # javascript 代码中的"use strict";是什么意思 ?
 
 严格模式：规范化 JS 代码，提高编译效率，为新版本的 JS 标准做铺垫。
-
-# Javascript 中，有一个函数，执行时对象查找时，永远不会去查找原型，这个函数是
-
-Object.hasOwnProperty(name)该方法只检查对象内部的属性。
 
 # 模块化开发怎么做？
 
@@ -58,30 +40,6 @@ Set：类似数组，成员值是唯一的，不可重复。
 
 Map：类似对象，键值对进行存储。
 
-# .call() 和 .apply() 的区别
-
-call():将参数依次传递给借用的方法做参数
-
-apply():将这些参数放入数组中再传递
-
-# 函数节流与函数防抖
-
-函数节流与函数防抖都是为了限制函数的执行次数
-
-函数防抖：当调用动作过 n 毫秒后，才会执行该动作，若在这 n 毫秒内又调用此动作则将重新计算执行时间
-
-```javascript
-function debounce(fn, wait) {
-  var timer = null;
-  return function() {
-    clearTimeout(timer);
-    timer = setTimeout(() => {
-      fn();
-    }, wait);
-  };
-}
-```
-
 # ==运算符判断相等的流程是怎样的
 
 1. 如果两个值类型相同，按照===进行比较。
@@ -92,28 +50,6 @@ function debounce(fn, wait) {
 
 利用事件冒泡和事件触发对象 event.target 来绑定事件
 
-# 跨域问题，及解决方式
-
-处于安全考虑，浏览器会限制脚本发起的跨域请求，例如 XMLHttpRequest 和 Fetch 遵循同源策略。
-
-同源策略限制从一个源加载的文档或脚本如何与来自另一个源的资源进行交互，这是一个用于隔离潜在恶意文件的安全机制。
-
-解决方式：
-
-1. JSONP：利用加载 JS 文件不需要遵循同源策略限制的原理
-2. CORS：在服务端返回允许跨域的访问头。
-3. WebSocket：WebSocket 不遵循同源策略限制。
-
-# JSONP 原理
-
-JSONP 原理是加载一个 script，并执行一段回调 JS 来获取请求到的数据。
-
-缺点：
-
-1. 无法发送特定的请求头
-2. 只能是 get 请求
-3. 无法发送 body
-
 # 手写 parseInt 的实现
 
 ```
@@ -122,10 +58,6 @@ function parseInt(str) {
   return str / 1;
 }
 ```
-
-# es6 中新增了哪些新功能
-
-箭头函数、模块化、类的声明、reflect、块级作用域、promise 实现
 
 # [1,2,3].map(parseInt) 输出什么
 
@@ -147,123 +79,21 @@ parseInt(3, 2, [1, 2, 3]);
 
 当进制数为 1 或大于 36 时，解析为 NaN。进制数在 2 到 36 之间时，第一个参数不属于该进制下的数，则解析为 NaN。所以依次输出 1，NaN，NaN。
 
-# 手写 Jquery 插件
-
-闭包+继承
-
-伪代码:
-
-```javascript
-(function($) {
-  $.fn.extend({
-    pluginName: function(arguments) {
-      // 逻辑
-    }
-  });
-})(jQuery);
-```
-
-# 数组去重
-
-```javascript
-var arr = [1, 1, 1, 2, 2, 3, 3, 4, 45, 5];
-var newArr = arr.filter((item, index, arr) => {
-  return arr.indexOf(item) === index;
-});
-```
-
-# 一句话实现数组去重
-
-```javascript
-new Set([1, 1, 1, 2, 2, 3, 3, 4, 45, 5]);
-```
-
 # JS 命名空间
 
 1. js 并不提供原生命名空间的支持
 2. 通过对象字面量来模拟命名空间
 3. 通过闭包实现命名空间
 
-# 0.1 + 0.2
-
-不等于 0.3，等于 0.30000000000000004
-
-js 是不区分整数和浮点数的，JS 中的所有数字都是浮点数。
-
-# jQuery 被誉为工厂函数的是
-
-$()
-
-# 使用箭头函数时要注意的地方
-
-当要求是动态上下文时，就不能使用箭头函数，比如：构造器创建对象，定义方法等。
-
-# 深拷贝与浅拷贝
-
-浅拷贝只是复制某个对象的指针，而不是复制对象本身，新旧对象指向同一块内存。
-
-深拷贝会复制一个一模一样的对象，并且创建新的内存。例如：递归 Object.assign()方法。
-
-# es5 中的 this 和箭头函数
-
-es5 中的 this 总是代表它的直接调用者，例如：obj.test()，this 就是 obj。
-
-定时器中的匿名函数由于没有默认的宿主对象，所有 this 指向 Window。
-
-箭头函数中的 this，指的是定义它的对象。
-
 # 默认不冒泡的事件
 
 focus、load、resize 等还有 media 相关事件，都不冒泡
-
-# 这里有一个 url `https://baijiahao.baidu.com/s?id=1583617694892288463&wfr=spider&for=pc`写一个函数 获取 query 的参数和值存放在一个对象中。
-
-```javascript
-function parseQueryString(url) {
-  let paramStr = url.substr(url.lastIndexOf('?') + 1);
-  const json = JSON.parse(
-    '{"' +
-      decodeURIComponent(paramStr)
-        .replace(/"/g, '\\"')
-        .replace(/=/g, '":"')
-        .replace(/&/g, '","') +
-      '"}'
-  );
-  return json;
-}
-```
 
 # 编写一个方法，返回 1 到 100 的任意整数
 
 ```javascript
 function getNumber() {
   return Math.floor(Math.random() * 100);
-}
-```
-
-# 点击时弹出其索引
-
-题目：
-
-```html
-<a href="#">一</a>
-<a href="#">二</a>
-<a href="#">三</a>
-```
-
-答案：
-
-```javascript
-var arr = document.getElementsByTagName('a');
-
-for (let i = 0; i < arr.length; i++) {
-  arr[i].addEventListener(
-    'click',
-    () => {
-      alert(i);
-    },
-    false
-  );
 }
 ```
 
@@ -277,96 +107,11 @@ function getLength(str) {
 }
 ```
 
-# 去除字符串前后的空格
-
-```javascript
-function trim(str) {
-  return str.replace(/(^\s*)|(\s*$)/g, '');
-}
-```
-
-# 手写一个倒计时功能
-
-```javascript
-let time = 10;
-let timer = null;
-function countDownTime() {
-  if (time === 0) {
-    clearTimeout(timer);
-  } else {
-    time--;
-    timer = setTimeout(() => {
-      countDownTime();
-    }, 1000);
-  }
-}
-countDownTime();
-```
-
-# 手写一个深浅 clone 有什么优化的方案？
-
-浅 clone：引用的复制，并不开辟新的内存地址，操作的还是同一个对象。方法：Object.assign 和 Array.slice()、Array.concat()。Array.slice()、Array.concat()看起来像深拷贝，但其实不是，对于数组里的对象元素还是只复制里其引用。
-
-```javascript
-function shallowClone(obj) {
-  var o = {};
-  for (var i in obj) {
-    o[i] = obj[i];
-  }
-  return o;
-}
-
-// 利用Object.assign也能实现浅拷贝
-var newObj = Object.assign({}, obj);
-```
-
-深 clone：开辟新的内存地址，将原对象中的各个属性逐个复制进去。可以利用 JSON.parse()和 JSON.stringify()来实现。但是这样会有个缺点，对象中的函数类型和正则表达式无法进行深拷贝，构造函数也会变成 Object()。
-
-```javascript
-var obj = {
-  name: 'jack',
-  child: {
-    name: 'child'
-  }
-};
-
-// 将JS对象转换成JSON字符串
-var jsonStr = JSON.stringify(obj);
-
-// 将JSON字符串转化为JS对象
-var newObj = JSON.parse(jsonStr);
-```
-
 # arguments 和数组有什么区别
 
 arguments：类数组类型为 Object，利用键值对获取属性
 
 数组：数组类型为 Array，从 Array.prototype 继承了一些方法，自动更新 length 属性。利用索引获取数据。
-
-# jQuery 的 on 、bind 和 delegate 的区别
-
-首先 bind 和 delegate 底层都是通过 on 函数来实现。
-
-bind 是将同一个事件处理函数添加到每一个匹配的元素上，click()是它的简写，浪费性能。
-
-delegate 只将事件添加到根元素上。
-
-# promise的三种状态
-
-pending(进行中)、fulfilled(已成功)和rejected(已失败)
-
-# 原生 js 实现 jQuery 的 on 函数
-
-封装 addEventListener，判断是否兼容 IE，不兼容就封装 attachEvent，多个事件需要遍历事件循环，伪代码：
-
-```javascript
-Element.prototype.on = function(type, fn) {
-  let events = type.split(' ');
-  for (let i = 0; i < events.length; i++) {
-    window.addEventListener ? this.addEventListener(events[i], fn) : this.attachEvent('on' + events[i], fn);
-  }
-};
-```
 
 # 算法:找出 100 以内的 7 的倍数和有 7 的整数
 
@@ -378,66 +123,6 @@ for (var i = 1; i < 100; i++) {
   }
 }
 console.log(res);
-```
-
-# 实现add(1)(2)最后返回3
-
-```javascript
-function add(num1) {
-    return function(num2) {
-        return num1 + num2;
-    }
-}
-```
-
-# 实现add(1)(2)(3)(4)最后返回10
-考察点：闭包、函数柯里化、console.log(function)调用function.toString()方法
-
-```javascript
-function add(num) {
-  let res = num
-  let fn = function(val) {
-    res = res + val
-    return fn
-  }
-  fn.toString = function() {
-    return res
-  }
-  return fn
-}
-```
-
-# 斐波那契数列
-
-
-```javascript
-function fib(n) {
-    if (n <= 2) {
-        return 1;
-    }
-    return fib(n - 1) + fib(n - 2);
-}
-```
-# 斐波那契数列优化
-
-
-```javascript
-// 缓存数组，存放之前的值
-var arr = [];
-
-function fib(n) {
-    if (n <= 2) {
-        return 1;
-    }
-
-    if (arr[n]) {
-        return arr[n];
-    } else {
-        const res = fib(n - 1) + fib(n - 2);
-        arr[n] = res;
-        return res;
-    }
-}
 ```
 
 

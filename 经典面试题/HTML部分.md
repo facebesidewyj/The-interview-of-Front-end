@@ -77,20 +77,6 @@ input 的常用属性及作用：
 
 空元素：br、hr、link、meta
 
-# HTTP 请求报文结构
-
-1. 请求行：请求方法、URI、协议
-2. 请求头：若干行请求头，包括 Host、User-Agent 等
-3. 空行：标识下面要发送请求体了
-4. 请求体：消息实体
-
-# HTTP 响应报文结构
-
-1. 响应行：HTTP 版本、状态码、状态描述
-2. 响应头：若干行响应头，包括：Date、Server 等
-3. 空行：标识下面要发送响应体了
-4. 响应体：消息实体
-
 # 什么是渐进增强
 
 所有人都能访问 **页面基本功能和内容** 的同时为更高级浏览器提供更好的用户体验。
@@ -107,12 +93,6 @@ label 为 input 元素定义标注。
 
 1. for 属性：绑定 input 标签的 id 属性值，点击 input 元素绑定的 label，input 将自动获得焦点。
 2. accesskey 属性：规定访问这个控件的热键。
-
-# 介绍一下你对浏览器内核的理解？
-
-渲染引擎：HTML、图片、css 的显示和整理
-
-JS 引擎：执行和解析 JS
 
 # 常见的浏览器内核有哪些？
 
@@ -157,14 +137,6 @@ Gecko 内核：firefox
 1. 页面头部添加 mainfest 属性
 2. 编写 cache.mainfest 文件
 3. 离线时调用 window.applicationCache
-
-# 请描述一下 cookies，sessionStorage 和 localStorage 的区别？
-
-cookies:网站为了标识用户信息而存储在终端上的数据，大小不能超过 4kb，会在请求中传递到服务器。
-
-sessionStorage:本地存储，大小不超过 5M，页面关闭后数据自动删除。
-
-localStorage:本地存储，大小不超过 5M，页面关闭后数据保存，除非主动删除。
 
 # iframe 有那些缺点？
 

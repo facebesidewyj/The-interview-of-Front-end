@@ -40,3 +40,32 @@ Webpack的热更新又称为热替换（Hot Module Replacement），这个机制
 * 浏览器根据hash的diff之后，向webpack-dev-server发送AJAX获取更新的文件列表，再通过JSONP获取到变动的代码模块
 * HotModulePlugin将会对新旧模块进行diff，来判断是否更新模块
 * 如果HMR失败，将会推倒live load执行浏览器刷新
+
+# Webpack 打包原理
+
+1. 每一个文件都是一个资源，可以用 require 导入的资源
+2. 对于单入口文件，在入口文件中，对每个 require 资源文件配置一个 id，根据 id 来进行打包
+3. 对于多入口文件，实际上是分别执行多个单入口文件。
+
+# Webpack 中 Loader 的 编写
+
+```javascript
+module.export = function(source) {
+  return source;
+};
+```
+
+# Webpack 中 plugin 的 编写
+
+```javascript
+class myPlugin {
+  constructor(options) {}
+  // 实现apply方法，让webpack进行调用
+  apply(compiler) {
+    compiler.plugin(compilation, function(compilation) {});
+  }
+}
+
+// 导出插件
+module.export = myPlugin;
+```

@@ -189,18 +189,6 @@ Flash Of Unstyle Content：页面闪烁，样式表加载问题。
 3. table：设为 table-cell，左边定宽，右边不定宽。
 4. absolute+padding：左边绝对定位，父元素 padding-left 设为左边元素宽度
 
-# CSS3 用过哪些新属性
-
-border-radius 圆角
-
-box-shadow text-shadow 文本和框的阴影
-
-box-sizing 盒模型设置
-
-flex 布局
-
-transition 过渡
-
 # BFC 和 IFC
 
 1. BFC：块级格式化上下文
