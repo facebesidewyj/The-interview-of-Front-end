@@ -81,7 +81,7 @@ export default class YPromise {
             }
           }
         } catch (err) {
-          resolve(err)
+          reject(err)
         }
       }
 
@@ -245,7 +245,7 @@ Promise.prototype.retry = function(fn, times, delay) {
         })
       }
     }
-    attempt
+    attempt()
   })
 }
 ```

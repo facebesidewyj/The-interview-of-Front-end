@@ -95,5 +95,6 @@ Block Formatting Context 边距重叠解决方案
 * flex-basis：元素占主轴的空间，默认为auto
 * order：定义元素的排列顺序，越小越靠前
 * align-self：元素自身的对齐方式，可覆盖align-item属性
+* align-content：只适用于多行flex容器，将子项作为一个整体进行对齐
 
 > flex属性是flex-grow、flex-shrink、flex-basis的缩写
