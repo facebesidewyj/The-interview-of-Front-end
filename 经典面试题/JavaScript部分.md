@@ -223,3 +223,23 @@ console.log(new C(2).a);
 1. 对象 A 中没有私有属性 a，所以直接取 A 对象原型上的值。
 2. 对象 B 中有私有属性 a，但传入的参数为 undefined，所以输出 undefined。
 3. 对象 C 也有私有属性 a，并且对传入的参数做了判断，如果有参数则创建私有属性 a，没有参数就取 C 对象原型上的 a。
+
+# 以下代码输出什么？
+
+```javascript
+function Developer() {} 
+console.log(Object instanceof Function)
+console.log(Function instanceof Object)
+console.log(Object instanceof Object)
+console.log(Function instanceof Function) 
+console.log(Developer instanceof Function) 
+console.log(Developer instanceof Developer)
+```
+
+答案：true true true true true false
+
+解释：
+
+1. Object、Function、Array这些都是构造函数Function的实例
+2. Function的原型对象为Object
+3. 所有的对象都是Object的实例
