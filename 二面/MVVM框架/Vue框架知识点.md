@@ -42,11 +42,17 @@ MVVM 采用双向绑定，View 的变动自动反应在 ViewModel，反之亦然
 
   * obj：目标对象，要实现绑定的对象
   * props：需要操作的属性名
-  * descriptor：对象描述符，常用描述属性如下：
-    * enumerable：属性是否可枚举，默认false
-    * configurable：属性是否可被修改或删除，默认为false
-    * get：获取属性触发的函数
-    * set：设置属性触发的函数
+  * descriptor：属性描述符，具有两种形式：
+    * 存取描述符，键值属性如下：
+      * enumerable：属性是否可枚举，默认false
+      * configurable：属性是否可被修改或删除，默认为false
+      * get：获取属性触发的函数
+      * set：设置属性触发的函数
+    * 数据描述符，键值属性如下：
+      * enumerable：属性是否可枚举，默认false
+      * configurable：属性是否可被修改或删除，默认为false
+      * value：属性对应的值，默认为undefined
+      * writable：属性是否可被赋值运算符改变，默认为false
 
   ```javascript
   let obj = {
@@ -70,6 +76,12 @@ MVVM 采用双向绑定，View 的变动自动反应在 ViewModel，反之亦然
 * Object.defineProperty 与 reflect.defineProperty 的区别：
 
   Object.defineProperty(obj, name, descriptor)在无法定义属性时，会抛出一个错误，而 Reflect.defineProperty(obj, name, descriptor)则会返回 false。
+  
+* Object.defineProperty与Proxy的区别
+
+  * Object.defineProperty是修改传入的对象的getter和setter来实现拦截
+  * Proxy会重新生成一个代理对象，修改代理对象才能触发拦截
+  * Proxy可以拦截更多的行为，比如in、delete等函数操作，Object.defineProperty只能拦截getter和setter
 
 > 对于数组的操作和对象新增属性，Object.defineProperty并不能拦截到这些操作，对于数组来说，Vue重写了Array的内部函数实现对数组的响应式拦截。对于对象新增属性来说，Vue提供了set函数来手动执行双向绑定
 
