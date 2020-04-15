@@ -111,4 +111,4 @@ Block Formatting Context 边距重叠解决方案
   })
   ```
 
-* 借助requestAnimationFrame来实现
+* 借助requestAnimationFrame来实现，一般用作兜底处理
