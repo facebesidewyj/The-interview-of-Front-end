@@ -87,3 +87,16 @@ el.dispatchEvent(customEvent);
 ```
 
 CustomEvent 也可自定义事件，而且可以传入参数对象。
+
+# 页面事件的生命周期
+
+* DOMContentLoaded：DOM树构建完毕触发，可以用JS去访问DOM节点
+  * 图片等资源有可能没有加载完毕
+  * defer和async加载的脚本可能没有执行
+* load：页面所有资源加载完毕
+* beforeunload：用户即将离开页面时触发的事件，它会返回一个字符串用来询问用户是否离开
+* unload：用户已经离开时触发
+* document.readyState：表示页面的加载状态，可以在readystatechange事件中监听页面变化状态
+  * loading：页面加载中
+  * interactive：页面解析完毕，时间上和DOMContentLoaded同时发生，但是先触发interactive状态
+  * complete：页面所有资源加载完毕，与load同时发生，但是先触发complete状态
