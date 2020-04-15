@@ -98,3 +98,17 @@ Block Formatting Context 边距重叠解决方案
 * align-content：只适用于多行flex容器，将子项作为一个整体进行对齐
 
 > flex属性是flex-grow、flex-shrink、flex-basis的缩写
+
+# 滚动条动画实现方式
+
+* 给body设置scroll-behavior:smooth来实现平滑滚动
+
+* 调用DOM元素的scrollIntoView方法，传入behavior参数
+
+  ```javascript
+  target.scrollIntoView({
+      behavior: "smooth"
+  })
+  ```
+
+* 借助requestAnimationFrame来实现
