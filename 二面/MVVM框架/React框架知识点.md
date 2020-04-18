@@ -1,6 +1,6 @@
 # React的生命周期
 
-React v16版本引入了Fiber机制，Fiber本质上是一个虚拟堆栈帧，新的调度器会按照优先级自由调度这些帧，从而将之前的同步渲染改成了异步渲染。 
+React v16版本引入了Fiber机制，Fiber本质上是一个虚拟堆栈帧（requestIdleCallback机制），新的调度器会按照优先级自由调度这些帧，从而将之前的同步渲染改成了异步渲染。 
 
 对于异步渲染来说，分为reconciliation和commit
 

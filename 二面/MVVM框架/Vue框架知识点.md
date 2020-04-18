@@ -222,7 +222,7 @@ patch函数基本执行过程：
 
 nextTick函数通过传入一个回调函数callback，这个callback会被存到一个队列中，这样会当render结束后在下一个tick时触发队列中的所有函数。
 
-本质上，Vue的data变化时会调用nextTick函数，并把Watcher的update函数当成回调函数传入nextTick函数，nextTick创建了一个异步任务（优先微任务），在调用栈执行完毕后，批量执行被传入的回调函数。所以当我们在使用`this.$nexxTick(()=>{// TODO})`时，并不会立即执行，而是传入了一个回调函数，在调用栈执行完毕后（宏任务），再去触发。
+本质上，Vue的data变化时会调用nextTick函数，并把Watcher的update函数当成回调函数传入nextTick函数，nextTick创建了一个异步任务（优先微任务），在调用栈执行完毕后，批量执行被传入的回调函数。所以当我们在使用`this.$nextTick(()=>{// TODO})`时，并不会立即执行，而是传入了一个回调函数，在调用栈执行完毕后（宏任务），再去触发。
 
 Vue源码中根据兼容性分别用setTimeout、setImmediate、Promise等方式在事件队列中创建了一个异步任务，在当前调用栈执行完毕后才去执行这个异步任务。[next-tick](https://github.com/vuejs/vue/blob/dev/src/core/util/next-tick.js#L90)
 
