@@ -100,3 +100,14 @@ CustomEvent 也可自定义事件，而且可以传入参数对象。
   * loading：页面加载中
   * interactive：页面解析完毕，时间上和DOMContentLoaded同时发生，但是先触发interactive状态
   * complete：页面所有资源加载完毕，与load同时发生，但是先触发complete状态
+
+# 点击事件穿透
+
+* 实现点击事件穿透（遮罩层蒙层点击）：
+  * 借助pointer-events: none;实现点击穿透，pointer-events: auto恢复点击处理
+
+* 阻止点击事件穿透：
+  * 不要混用touch和click
+  * 借助fastclick，貌似最新浏览器已经不需要了
+  * 延长蒙层的消失时间
+
