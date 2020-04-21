@@ -58,3 +58,21 @@ React将事件统一绑定在了document上，并且冒泡到document上的事�
 
 * 抹平了浏览器差异，实现跨平台
 * 事件复用
+
+# React与Vue的对比
+
+相同点：
+
+* 都是视图层框架，挂载id之后渲染html
+* 都使用了VNode，template和render解析完成后都是createElement，都采用了异步更新
+* 组件化思想
+* 都支持服务端渲染，和对应的状态管理工具
+* 社区优秀
+
+不同点：
+
+* 语法不同
+* 数据机制不同，Vue基于Object.definedProperty实现响应式，React基于state状态机制
+* 思想不同，Vue实现双向绑定，数据可变，React单向数据流，函数式编程
+* Vue提供了大量友好的语法糖，写法自由度高，React更推崇all in js严谨一些，维护性高，工程化集成容易
+* Vue开发门槛低，需要严格的开发规范去约束，React开发成本高，需要更多抽象思维

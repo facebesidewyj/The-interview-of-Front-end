@@ -250,3 +250,29 @@ Promise.prototype.retry = function(fn, times, delay) {
 }
 ```
 
+# Promise实现接口超时限制
+
+借助Promise.race优先返回的机制，来实现接口超时
+
+```javascript
+const timeoutPromise = function(s) {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      reject('接口超时')
+    }, s * 1000)
+  })
+}
+
+const fetchPromise = function(req) {
+  return new Promise((resolve, reject) => {
+    // 执行对应的resolve和reject逻辑
+  })
+}
+
+const fetch = function(req) {
+  return Promise.race([fetchPromise(req), timeoutPromise(10)])
+}
+```
+
+
+

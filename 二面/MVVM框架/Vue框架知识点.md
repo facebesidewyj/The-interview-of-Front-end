@@ -16,6 +16,14 @@ MVC 是单向通信，控制器C承担的任务巨大，不利于维护。
 
 MVVM 采用双向绑定，View 的变动自动反应在 ViewModel，反之亦然。
 
+# Vue3.0新特性
+
+* Virtual DOM重构，优化页面渲染速度
+* 基于Proxy实现数据响应式
+* Flow转换为TS
+* 报错信息优化
+* 支持tree-shaking
+
 # Vue内部运行机制
 
 * 初始化及挂载：初始化分三步：
@@ -311,3 +319,53 @@ hash模式和history模式的区别：
 
 * 借助webpack的require.context函数获取一个特定的上下文
 * 暴露一个根文件，根文件中引入并注册所有需要的组件
+
+# Vue实现对数组的响应式
+
+实现变异数组：功能扩展、数组劫持
+
+```javascript
+const arrayProto = Array.prototype
+const newArray = Object.create(arrayProto)
+
+const patchMethods = ['push', 'pop', 'shift', 'unshift', 'splice', 'sort', 'reverse']
+
+patchMethods.forEach((method) => {
+  const originalMethod = arrayProto[method]
+  const res = originalMethod.apply(this, arguments)
+  let inserted
+  switch(method) {
+    case 'unshift':
+    case 'push':
+      inserted = arguments
+    case 'splice':
+    	inserted = arrayProto.slice.call(arguments, 2)
+  }
+  if(inserted) {
+    defineProperty(inserted)
+  }
+  dep.notify()
+  return res
+})
+
+const arr = []
+arr.__proto__ = newArray
+```
+
+# Vue-loader解析原理
+
+本质上是将*.vue文件转换成可以在浏览器中运行的JavaScript模块，Vue-loader分为四个小模块：
+
+* selector：生成三个import语句
+* style-compiler：解析CSS样式，生成一个样式对象
+* template-compiler：解析template标签生成一个AST描述对象
+* babel-loader：解析JS
+
+vue-loader处理过后的模块是一个JS对象，包括render方法，createElement方法
+
+解析流程：
+
+* 解析整个.vue文件，通过正则拿到描述信息，最终得到descriptor信息对象，一个具有描述节点信息的树形结果
+* 生成带有type标识的资源路径，script、template、style
+* 针对不同资源路径，调用不同的loader进行处理
+
