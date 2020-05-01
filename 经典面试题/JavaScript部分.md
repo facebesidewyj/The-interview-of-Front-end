@@ -28,12 +28,6 @@ document.write 只能重绘整个页面
 
 innerHTML 可以重绘页面的一部分
 
-# let 与 var 的区别
-
-let：作用域为代码块，不允许重复声明，不会变量提升。
-
-var：作用域为函数内，允许重复声明，会变量提升。
-
 # Set 和 Map 结构
 
 Set：类似数组，成员值是唯一的，不可重复。
@@ -89,42 +83,11 @@ parseInt(3, 2, [1, 2, 3]);
 
 focus、load、resize 等还有 media 相关事件，都不冒泡
 
-# 编写一个方法，返回 1 到 100 的任意整数
-
-```javascript
-function getNumber() {
-  return Math.floor(Math.random() * 100);
-}
-```
-
-# 求字符串的字节长度
-
-原理：将中文替换成两个英文字母，因为一个中文等于两个字节，一个英文等于一个字节
-
-```javascript
-function getLength(str) {
-	return str.replace(/[^\u0000-\uffff]/g, 'aa').length;
-}
-```
-
 # arguments 和数组有什么区别
 
 arguments：类数组类型为 Object，利用键值对获取属性
 
 数组：数组类型为 Array，从 Array.prototype 继承了一些方法，自动更新 length 属性。利用索引获取数据。
-
-# 算法:找出 100 以内的 7 的倍数和有 7 的整数
-
-```javascript
-let res = [];
-for (var i = 1; i < 100; i++) {
-  if (i % 7 === 0 || i.toString().indexOf('7') > -1) {
-    res.push(i);
-  }
-}
-console.log(res);
-```
-
 
 # 以下代码输出什么？
 
