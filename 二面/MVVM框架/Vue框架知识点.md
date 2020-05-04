@@ -1,20 +1,7 @@
-# 谈谈你对 MVVM 的认识？
+# MVVM 和 MVC对比
 
-注意事项：
-
-1. 聊聊 MVC，彰显知识面涉猎较多
-
-Model,View,Controler
-
-2. 把 MVVM 定义说清楚
-
-Model(服务器中的数据实体),View(视图),ViewModel(核心枢纽 Vue.js)
-
-3. 对比 MVVM 和 MVC
-
-MVC 是单向通信，控制器C承担的任务巨大，不利于维护。
-
-MVVM 采用双向绑定，View 的变动自动反应在 ViewModel，反之亦然。
+* MVC：Model，View，Controler。MVC 是单向通信，控制器C承担的任务巨大，不利于维护
+* MVVM：Model(服务器中的数据实体),View(视图),ViewModel(核心枢纽 Vue.js)。MVVM 采用双向绑定，View 的变动自动反应在 ViewModel，反之亦然
 
 # Vue3.0新特性
 
@@ -30,7 +17,7 @@ MVVM 采用双向绑定，View 的变动自动反应在 ViewModel，反之亦然
   * new Vue()之后会调用_init()函数初始化，初始化生命周期、事件、props、computed、watch等。
   * 遍历data通过Object.defineProterty()设置Getter和Setter函数来完成**双向绑定**和**依赖收集**。
   * 执行$mount来挂载组件
-* 编译：挂载组件需要进行编译，这里分三步：
+* 模版编译：挂载组件需要进行编译（Vue 提供了两个版本，一个包含编译代码，一个不包含编译代码），这里编译分三步：
   * 正则解析template模版中的指令、class、style等数据，形成AST（抽象语法树）
   * 标记静态节点，在diff算法里会跳过静态节点，提升性能
   * 将AST生成渲染VNode所需要的render function字符串
@@ -332,20 +319,20 @@ const arr = []
 arr.__proto__ = newArray
 ```
 
-# Vue-loader解析原理
+# Vue-loader原理及template编译过程
 
-本质上是将*.vue文件转换成可以在浏览器中运行的JavaScript模块，Vue-loader分为四个小模块：
-
-* selector：生成三个import语句
-* style-compiler：解析CSS样式，生成一个样式对象
-* template-compiler：解析template标签生成一个AST描述对象
-* babel-loader：解析JS
-
-vue-loader处理过后的模块是一个JS对象，包括render方法，createElement方法
-
-解析流程：
-
-* 解析整个.vue文件，通过正则拿到描述信息，最终得到descriptor信息对象，一个具有描述节点信息的树形结果
-* 生成带有type标识的资源路径，script、template、style
-* 针对不同资源路径，调用不同的loader进行处理
+* Vue-loader执行原理：
+  * Vue-loader允许一种名为单文件组件的格式（SFC）来撰写Vue组件
+  * Vue-loader处理过后的模块是一个JS对象，包括render方法，createElement方法
+  * Vue-loader对Vue组件文件里的每个代码块（例如：template、script、style）都采取不同的loader来进行处理，Webpack中可以设置相应的loader来处理这些代码块
+  * Vue-loader在执行中包含两部分：Vue-loader-plugin和Vue-loader
+    * Vue-loader-plugin作用：Webpack在实例化compiler对象之后，会依次执行所有plugin的apply方法，apply做了三件事情：
+      * 事件监听：监听normalModuleLoader钩子函数，标记loaderContext[NS] = true
+      * 格式化rules：将Webpack中配置的rules使用new RuleSet格式化，并clone一份用于Vue文件的代码解析
+      * 自定义rules：在rules加入Vue-loader内部提供的rules，pitcher-rule对应pitcher-loader
+    * Vue-loader作用：Webpack分析到依赖的Vue组件文件时，会匹配到对应的loader，去执行Vue-loader的逻辑
+      * 解析.Vue文件生成descriptor：对.vue文件进行parse生成descriptor（代码块：template、script等），根据descriptor生成资源请求路径（例如：`import { render, staticRenderFns } from "./source.vue?vue&type=template&id=27e4e96e&scoped=true&lang=pug&"`），对template的解析默认使用vue-template-compiler来解析成JS代码的
+      * 执行pitch函数自定义资源请求：执行pitcher-loader更新资源请求路径，跳过不必要的loader
+      * 依次执行配置的loader：将新的资源请求路径交给Webpack依赖解析，根据资源请求上的loader顺序，执行对应的loader。template是有template-loader来处理的，JS代码交给babel-loader，CSS交给css-loader
+* Vue中template的编译过程（vue-template-compiler）
 
