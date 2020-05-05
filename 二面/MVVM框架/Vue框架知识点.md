@@ -289,34 +289,53 @@ hash模式和history模式的区别：
 
 # Vue实现对数组的响应式
 
-实现变异数组：功能扩展、数组劫持
+由于`Object.defineProperty()`只能监听数组本身，而不能劫持数组中的内部元素，所以Vue不能检测以下数组的变动：
+
+* 通过索引直接设置数据项
+* 数据长度变化
+
+Vue在初始化遍历data通过Object.defineProterty()进行数据劫持时，会判断数组类型，当data中有数组类型并且具有原型对象时，调用`protoAugment(value, arrayMethods)`改变数组的`__proto__` 使其指向Vue实现的变异数组
+
+变异数组的实现：功能扩展、数组劫持
 
 ```javascript
 const arrayProto = Array.prototype
 const newArray = Object.create(arrayProto)
 
-const patchMethods = ['push', 'pop', 'shift', 'unshift', 'splice', 'sort', 'reverse']
+const methodsToPatch = ['push', 'pop', 'shift', 'unshift', 'splice', 'sort', 'reverse']
 
-patchMethods.forEach((method) => {
+methodsToPatch.forEach((method) => {
   const originalMethod = arrayProto[method]
-  const res = originalMethod.apply(this, arguments)
-  let inserted
-  switch(method) {
-    case 'unshift':
-    case 'push':
-      inserted = arguments
-    case 'splice':
-    	inserted = arrayProto.slice.call(arguments, 2)
-  }
-  if(inserted) {
-    defineProperty(inserted)
-  }
-  dep.notify()
-  return res
+  Object.defineProperty(newArray, method, {
+    value: (...args) => {
+    	const res = originalMethod.apply(this, args)
+      const ob = this.__ob__
+    	let inserted
+    	switch(method) {
+      	case 'unshift':
+      	case 'push':
+        	inserted = args
+        	break
+      	case 'splice':
+        	inserted = args.slice(2)
+        	break
+    	}
+      // 获取数组要执行劫持的参数项
+    	if(inserted) {
+        // 重新实现响应式绑定
+      	ob.observeArray(inserted)
+    	}
+      // 通过监听队列更新
+    	ob.dep.notify()
+    	return res
+  	},
+    enumerable: true,
+    writable: true,
+    configurable: true
+  })
 })
 
-const arr = []
-arr.__proto__ = newArray
+export newArray
 ```
 
 # Vue-loader原理及template编译过程
@@ -334,5 +353,12 @@ arr.__proto__ = newArray
       * 解析.Vue文件生成descriptor：对.vue文件进行parse生成descriptor（代码块：template、script等），根据descriptor生成资源请求路径（例如：`import { render, staticRenderFns } from "./source.vue?vue&type=template&id=27e4e96e&scoped=true&lang=pug&"`），对template的解析默认使用vue-template-compiler来解析成JS代码的
       * 执行pitch函数自定义资源请求：执行pitcher-loader更新资源请求路径，跳过不必要的loader
       * 依次执行配置的loader：将新的资源请求路径交给Webpack依赖解析，根据资源请求上的loader顺序，执行对应的loader。template是有template-loader来处理的，JS代码交给babel-loader，CSS交给css-loader
-* Vue中template的编译过程（vue-template-compiler）
+* Vue中template模版的编译过程（vue-template-compiler）：将模版转换成render函数的过程，称之为Vue的编译过程。Vue提供两个版本代码，一个是Runtime+Compiler的，一个是Runtime Only的，前者会在运行时来执行编译过程，后者不包含编译代码，需要借助Webpack的Vue-loader来静态编译（生产环境多采用后者，减少代码体积大小）。编译过程涉及以下4个方面：
+  * 编译入口：在包含编译代码的Vue中，Vue会在$mount函数中执行`compileToFunctions`来执行编译操作。为了区分各个平台的编译过程，Vue使用函数柯里化的技巧实现了`baseOptions`的参数保留，并通过`createCompilerCreator(baseCompile)`把基础的编译过程函数抽离来实现都平台编译（weex）
+  * parse：将template模版字符串转换成AST语法树（while循环模版字符串），整个parse过程利用正则表达式（simplehtmlparser提供基础支持），当解析开始标签、闭合标签、文本的时候都会去执行对应的回调函数来生成AST语法树，创建步骤如下：
+    * 创建AST元素：根据元素类型调用`createASTElement`创建AST对象
+    * 处理AST元素：处理AST对象中的各种指令（v-if、v-for等）
+    * 管理AST树：建立树级结构，生成AST树
+  * optimize：`markStatic(root)` 标记静态节点，`markStaticRoots(root, false)` 标记静态根。深度遍历整个AST语法树，标记静态节点，使其不被重复渲染
+  * codegen：将优化后的的AST语法树生成可执行的代码，将拼接的方法字符串调用`new Function()`生成render函数。render函数中利用方法名简写对应各个生成VNode的方法，例如：`_c` 就是执行 `createElement` 去创建 VNode；`_l` 对应 `renderList` 渲染列表；`_v` 对应 `createTextVNode` 创建文本 VNode；`_e` 对应 `createEmptyVNode`创建空的 VNode
 
