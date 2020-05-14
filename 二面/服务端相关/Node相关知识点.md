@@ -9,3 +9,30 @@
   * socket通信：需要创建连接
   * message queue：通过中间件MQ通信
   * Redis通信：将Redis作为消息队列
+
+# express对象模型的简易实现
+
+```javascript
+function express() {
+  const funList = []
+  
+  const app = function(req, res) {
+    let i = 0
+    function next() {
+      const task = funList[i++] 
+      if(!task) {
+        return 
+      }
+      task(req, res, next)
+    }
+    
+    next()
+  }
+  
+  app.use = function(task) {
+    funList.push(task)
+  }
+  return app
+}
+```
+

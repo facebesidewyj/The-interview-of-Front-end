@@ -1,4 +1,6 @@
-】React v16版本引入了Fiber机制，Fiber本质上是一个虚拟堆栈帧，新的调度器会按照优先级自由调度这些帧，从而将之前的同步渲染改成了异步渲染。 
+# React的生命周期
+
+React v16版本引入了Fiber机制，Fiber本质上是一个虚拟堆栈帧（requestIdleCallback机制），新的调度器会按照优先级自由调度这些帧，从而将之前的同步渲染改成了异步渲染。 
 
 对于异步渲染来说，分为reconciliation和commit
 
@@ -33,8 +35,10 @@
 
 # setState函数
 
-* 异步更新，触发render函数
-* 多次调用内部会合并成一次，保证每次调用都触发，需要传入第二个参数回调函数
+* 每次执行setState时，都会触发render函数
+* 在React的生命周期或事件处理函中执行setState，React会设置一个标志位，标志着当前setState操作是往任务队列里存放任务，当函数调用完毕时，再去批量处理任务队列，重置标识位。多次调用内部会合并成一次，保证每次调用都触发，需要传入第二个参数回调函数
+* 对于setTimeout等函数中执行setState来说，超出了React的控制范围，React不再往任务队列中添加任务，而是强制同步更新
+* 当setState的第一个参数时函数时，React会将其直接添加到任务队列，不会进行调用合并
 
 # React组件通信
 
@@ -54,3 +58,21 @@ React将事件统一绑定在了document上，并且冒泡到document上的事�
 
 * 抹平了浏览器差异，实现跨平台
 * 事件复用
+
+# React与Vue的对比
+
+相同点：
+
+* 都是视图层框架，挂载id之后渲染html
+* 都使用了VNode，template和render解析完成后都是createElement，都采用了异步更新
+* 组件化思想
+* 都支持服务端渲染，和对应的状态管理工具
+* 社区优秀
+
+不同点：
+
+* 语法不同
+* 数据机制不同，Vue基于Object.definedProperty实现响应式，React基于state状态机制
+* 思想不同，Vue实现双向绑定，数据可变，React单向数据流，函数式编程
+* Vue提供了大量友好的语法糖，写法自由度高，React更推崇all in js严谨一些，维护性高，工程化集成容易
+* Vue开发门槛低，需要严格的开发规范去约束，React开发成本高，需要更多抽象思维
