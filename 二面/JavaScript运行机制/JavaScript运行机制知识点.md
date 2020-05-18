@@ -41,7 +41,7 @@ V8引擎执行JS代码的过程：
 
 异步任务：进入Event Table并注册函数
 
-# 什么是Event Loop。
+# 什么是Event Loop
 
 1. 同步和异步任务分别进入不同的"场所"，同步任务进入主线程，异步任务进入Event Table，并注册函数。
 2. 当指定的事情完成时，Event Table会将这个函数移入Event Queue。
