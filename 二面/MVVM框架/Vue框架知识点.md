@@ -361,4 +361,3 @@ export newArray
     * 管理AST树：建立树级结构，生成AST树
   * optimize：`markStatic(root)` 标记静态节点，`markStaticRoots(root, false)` 标记静态根。深度遍历整个AST语法树，标记静态节点，使其不被重复渲染
   * codegen：将优化后的的AST语法树生成可执行的代码，将拼接的方法字符串调用`new Function()`生成render函数。render函数中利用方法名简写对应各个生成VNode的方法，例如：`_c` 就是执行 `createElement` 去创建 VNode；`_l` 对应 `renderList` 渲染列表；`_v` 对应 `createTextVNode` 创建文本 VNode；`_e` 对应 `createEmptyVNode`创建空的 VNode
-
