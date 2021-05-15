@@ -80,4 +80,3 @@ V8引擎执行JS代码的过程：
 ***script(主程序代码)—>process.nextTick—>Promises...——>setTimeout——>setInterval——>setImmediate——> I/O——>UI rendering***
 
 >  宏任务和微任务是从另一个维度去定义JavaScript的任务队列，微任务存在的意义可能是浏览器不希望一些优先级高的任务等待一个完整事件循环周期再去执行，可能有些像银行柜台的VIP通道
-
